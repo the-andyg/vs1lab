@@ -172,7 +172,7 @@ legend {
   }
 
   .discovery__wrapper {
-    display:initial!important;
+    flex-direction: column;
   }
 
   .discovery__taglist {
@@ -202,6 +202,7 @@ legend {
   display: flex;
   justify-content: space-between;
   padding-top: 12px;
+  
 }
 
 ul.discovery__results li {
