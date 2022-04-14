@@ -309,7 +309,7 @@ li {
       width: 100%;
     }
 
-    .discovery__map, #mapView {
+    .discovery__map, .discovery__map img {
       width: 100%;
       display: block;
     }
