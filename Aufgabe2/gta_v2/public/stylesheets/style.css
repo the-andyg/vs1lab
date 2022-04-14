@@ -1,8 +1,8 @@
 /*
-  File origin: VS1LAB A1b  
+  File origin: VS1LAB A1b
 
   CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
-  CSS variables used for clarity and themability (e.g. through SSR). 
+  CSS variables used for clarity and themability (e.g. through SSR).
   Inherited box sizing used for ease of including 3rd party content-box components.
 */
 
@@ -46,8 +46,27 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+input {
+  display: block;
+  height: 30px;
+  width: 200px;
+  border: solid;
+  border-color: var(--border-color);
+  border-width: 1px;
+  padding-left: 10px;
+}
 
+label {
+  display: block;
+}
+
+button {
+  height: 30px;
+  width: 200px;
+  border: solid;
+  border-color: var(--border-color);
+  border-width: 1px;
+}
 
 /* Grid styles (no changes required) */
 
@@ -109,11 +128,28 @@ a {
 
 /* ### TODO ### Styles for Header Component */
 
+<<<<<<<< HEAD:Aufgabe2/gta_v2/public/stylesheets/style.css
+.header {
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 40px;
+  height: 100px;
+  border-bottom: var(--border-color) 1px solid;
+}
+
+.header__image {
+  height: 100%;
+}
+
+========
 /* ... your code here ... */
 .header__image {
   min-width: 60px;
   width: 3%;
 }
+>>>>>>>> 670347f (aufgabe 1):Aufgabe1/gta_v1/public/stylesheets/style.css
 
 header {
   padding: 4%;
@@ -127,6 +163,13 @@ header {
 
 /* ### TODO ### Styles for Main Component */
 
+<<<<<<<< HEAD:Aufgabe2/gta_v2/public/stylesheets/style.css
+.main {
+  padding: 40px 40px 40px 40px;
+  gap: 100px;
+  margin-bottom: 100px;
+}
+========
 /* ... your code here ... */
 main {
   display: flex;
@@ -163,15 +206,32 @@ legend {
   font-weight: bold;
 }
 
+>>>>>>>> 670347f (aufgabe 1):Aufgabe1/gta_v1/public/stylesheets/style.css
 
+.fieldset {
+  padding: 10px;
+  border-color: var(--border-color);
+  border-width: 1px;
+}
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
 
+.fieldsetTagging {
+  padding: 10% 20% 10% 10%;
+}
+
+#inLatitude, #inLongitude{
+  background-color: var(--background-color);
+}
 
 /* ### TODO ### Styles for Discovery component */
 
+<<<<<<<< HEAD:Aufgabe2/gta_v2/public/stylesheets/style.css
+.discovery__wrapper {
+  margin-top: 30px;
+}
+========
 /* ... your code here ... */
 .discovery input {
   width: 20%;
@@ -181,7 +241,7 @@ legend {
   display: flex;
   justify-content: space-between;
   padding-top: 12px;
-
+  
 }
 
 ul.discovery__results li {
@@ -201,10 +261,61 @@ ul.discovery__results li:last-of-type {
   display: block;
 }
 
+>>>>>>>> 670347f (aufgabe 1):Aufgabe1/gta_v1/public/stylesheets/style.css
 
+li {
+  background-color: var(--background-color);
+  border: var(--border-color) 1px solid;
+  color: var(--link-color);
+  list-style-type: none;
+  margin: 0 20px 20px 0;
+  height: 50px;
+  padding: 10px;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
+<<<<<<<< HEAD:Aufgabe2/gta_v2/public/stylesheets/style.css
+.footer {
+  background-color: var(--background-color);
+  padding: 40px;
+  height: 100px;
+  width: 100%;
+  border-top:var(--border-color) 1px solid;
+  position: fixed;
+  bottom: 0;
+}
+
+
+
+/* ### TODO ### Media Queries */
+
+@media screen and (max-width: 1000px) {
+
+  @media(max-width: 980px){
+    input {
+      width: 100%!important;
+    }
+
+    .main__tagging {
+      width: 100%;
+    }
+
+    .discovery__wrapper {
+      display: initial!important;
+    }
+
+    .discovery__taglist{
+      width: 100%;
+    }
+
+    .discovery__map, #mapView {
+      width: 100%;
+      display: block;
+    }
+  }
+}
+========
 /* ... your code here ... */
 footer {
   background-color: var(--background-color);
@@ -241,3 +352,4 @@ footer {
     display: block;
   }
 }
+>>>>>>>> 670347f (aufgabe 1):Aufgabe1/gta_v1/public/stylesheets/style.css
