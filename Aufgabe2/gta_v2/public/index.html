@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<!-- File origin: VS1LAB A1a -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoTagApp</title>
+    <link rel="stylesheet" href="stylesheets/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<header class="header">
+    <img src="../../../Aufgabe1/gta_v1/public/images/location.png" class="header__image" alt="an image of a map and location">
+    <h1 class="header__title">GeoTagApp</h1>
+    <nav class="header__navigation">
+        <a href="#">About</a> | <a href="#">Help</a> | <a href="/">Home</a>
+    </nav>
+</header>
+
+<main class="main row">
+    <section class="main__tagging tagging col-4">
+        <h2>Tagging</h2> <br>
+
+        <!-- ############### VS1Lab 1a Form 1 Start -->
+        <form id="tag-form" action="/tagging" method="post">
+            <fieldset class="fieldsetTagging fieldset">
+                <legend>Add new GeoTag</legend>
+                <label for="inLatitude">Latitude:</label> <br>
+                <input id="inLatitude" placeholder="49.01379" disabled> <br>
+                <label for="inLongitude">Longitude:</label> <br>
+                <input id="inLongitude" placeholder="8.390071" disabled> <br>
+                <label for="tagName">Name:</label> <br>
+                <input id="tagName" placeholder="e.g. Central Berlin" maxlength="10" required> <br>
+                <label for="tagHashtag">Hashtag:</label> <br>
+                <input id="tagHashtag" placeholder="e.g. #ber" pattern="^#[a-z]{1,10}$"> <br>
+                <button type="submit" value="Add Tag">Add Tag</button>
+            </fieldset>
+        </form>
+        <!-- ############### VS1Lab 1a Form 1 End -->
+
+    </section>
+
+    <section class="main__discovery col-8">
+        <h2 class="discovery__title">Discovery</h2> <br>
+
+        <!-- ############### VS1Lab 1a Form 2 Start -->
+        <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
+            <fieldset class="fieldsetDiscovery fieldset">
+                <legend>Search</legend>
+                <label for="searchBar">Search term or keywords:</label> <br>
+                <input id="searchBar" placeholder="e.g. Berlin"> <br>
+                <button type="submit">Search</button>
+            </fieldset>
+        </form>
+        <!-- ############### VS1Lab 1a Form 2 End -->
+
+        <div class="discovery__wrapper row">
+            <div class="discovery__taglist col-12">
+                <ul class="discovery__results" id="discoveryResults">
+                    <li>Castle (49.01379, 8.404435) #sight</li>
+                    <li>IWI (49.01379, 8.390071) #edu</li>
+                </ul>
+            </div>
+
+            <div class="discovery__map">
+                <img src="../../../Aufgabe1/gta_v1/public/images/mapview.jpg" alt="a map with locations" id="mapView"/> <br>
+                <span>Result map</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <span>(c) 2021/22 HKA_IWI_VSYS</span>
+</footer>
+
+<script src="./javascripts/geotagging.js"></script>
+
+</body>
+
+</html>
