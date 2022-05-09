@@ -4,7 +4,7 @@
 
 // This script is executed when the browser loads index.html.
 
-// "console.log" writes to the browser's console. 
+// "console.log" writes to the browser's console.
 // The console window must be opened explicitly in the browser.
 // Try to find this output in the browser...
 console.log("The geoTagging script is going to start...");
@@ -102,26 +102,19 @@ class MapManager {
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
-// ... your code here ...
-    function updateLocation() {
-        LocationHelper.findLocation(assignValue);
-    }
-
-    function assignValue(helper) {
-        var lat = document.getElementById("latitude");
-        var long = document.getElementById("longitude");
-
-        lat.value = helper.latitude;
-        long.value = helper.longitude;
-
-        var mapMan = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
-        var url = mapMan.getMapUrl(helper.latitude, helper.longitude);
-
-        var mapImg = document.getElementById("mapView");
-        mapImg.src = url;
-    }
+function updateLocation() {
+    const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
+    LocationHelper.findLocation(function (helper) {
+        const inLatitude = document.getElementById("inLatitude");
+        inLatitude.value = helper.latitude;
+        const inLongitude = document.getElementById("inLongitude");
+        inLongitude.value = helper.longitude;
+        const mapPicture = document.getElementById("mapView");
+        mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude);
+    });
+}
 
 // Wait for the page to fully load its DOM content, then call updateLocation
- document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
- });
+});
