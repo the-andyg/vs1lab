@@ -32,13 +32,19 @@ class InMemoryGeoTagStore{
 
     //Include all examples from ./model/geotag-examples.js
     constructor() {
-        GeoTagExamples.tagList.forEach(function (tag) {
-            this.#geotags.push(new GeoTag(tag[0], tag[1], tag[2], tag[3])); //not available inside scope?!
-        })
+        var examples = GeoTagExamples.tagList;
+        for(var i = 0; i < examples.length; i++) {
+            this.addGeoTag(examples[i]);
+        }
+    }
+
+    get geotags() {
+        return this.#geotags;
     }
 
     addGeoTag(g) {
-        this.#geotags.push(g);
+        var tag = new GeoTag(g[0], g[1], g[2], g[3]);
+        this.#geotags.push(tag);
     }
 
     removeGeoTag(name) {

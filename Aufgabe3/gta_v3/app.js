@@ -43,10 +43,12 @@ app.use(express.urlencoded({ extended: false }));
  */
 
 // TODO: ... your code here ...
-//app.use('public/stylesheets/style.css', indexRouter); //Still throwing 404 Error
+app.use(express.static(__dirname + '/public'));
 
 // Set dedicated script for routing
 app.use('/', indexRouter);
+app.use('/tagging', indexRouter);
+app.use('/discovery', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

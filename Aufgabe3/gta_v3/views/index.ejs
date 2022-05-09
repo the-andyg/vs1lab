@@ -9,13 +9,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoTagApp</title>
-    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 <header class="header">
-    <img src="./images/location.png" class="header__image" alt="an image of a map and location">
+    <img src="/images/location.png" class="header__image" alt="an image of a map and location">
     <h1 class="header__title">GeoTagApp</h1>
     <nav class="header__navigation">
         <a href="#">About</a> | <a href="#">Help</a> | <a href="/">Home</a>
@@ -32,10 +32,10 @@
                 <legend>Add a new GeoTag</legend>
                 <!-- ... your code here ... -->
                 <label for="latitude">Latitude:</label>
-                <input type="text" disabled name="latitude" id="latitude" placeholder="e.g. 49.123">
+                <input type="text" disabled name="latitude" id="latitude" placeholder="e.g. 49.123" value="<%= //coordinates[0] %>">
 
                 <label for="longitude">Longitude:</label>
-                <input type="text" disabled name="longitude" id="longitude" placeholder="e.g. 49.123">
+                <input type="text" disabled name="longitude" id="longitude" placeholder="e.g. 49.123" value="<%= //coordinates[1] %>">
 
                 <label for="name">Name:</label>
                 <input type="text" name="name" maxlength="10" required="required" id="name"
@@ -77,13 +77,13 @@
             <div class="discovery__taglist col-3">
                 <ul class="discovery__results" id="discoveryResults">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
+                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtags %> </li>
                     <% }); %>
                 </ul>
             </div>
 
             <div class="discovery__map col-9">
-                <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
+                <img src="/images/mapview.jpg" alt="a map with locations" id="mapView" />
                 <span>Result map</span>
             </div>
         </div>
@@ -97,3 +97,5 @@
 </body>
 
 </html>
+
+<script type="text/javascript" src="./javascripts/geotagging.js"></script>

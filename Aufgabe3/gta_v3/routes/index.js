@@ -10,6 +10,7 @@
  * Define module dependencies.
  */
 
+
 const express = require('express');
 const router = express.Router();
 
@@ -42,7 +43,13 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  const store = new GeoTagStore();
+  var loc = new LocationHelper();
+  LocationHelper.findLocation(cb);
+  res.render('index', {
+    taglist: store.geotags,
+    coordinates : [loc.longitude, loc.latitude]
+  })
 });
 
 /**

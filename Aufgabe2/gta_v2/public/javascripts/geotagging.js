@@ -111,14 +111,11 @@ class MapManager {
         var lat = document.getElementById("latitude");
         var long = document.getElementById("longitude");
 
-        console.log(helper);
-
         lat.value = helper.latitude;
         long.value = helper.longitude;
 
         var mapMan = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
         var url = mapMan.getMapUrl(helper.latitude, helper.longitude);
-        console.log(url);
 
         var mapImg = document.getElementById("mapView");
         mapImg.src = url;

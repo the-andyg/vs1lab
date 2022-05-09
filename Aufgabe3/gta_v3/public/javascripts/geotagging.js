@@ -7,6 +7,7 @@
 // "console.log" writes to the browser's console. 
 // The console window must be opened explicitly in the browser.
 // Try to find this output in the browser...
+
 console.log("The geoTagging script is going to start...");
 
 /**
@@ -63,7 +64,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = '';
+    #apiKey = '6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC';
 
     /**
      * Create a new MapManager instance.
@@ -111,20 +112,20 @@ class MapManager {
         var lat = document.getElementById("latitude");
         var long = document.getElementById("longitude");
 
-        console.log(helper);
-
         lat.value = helper.latitude;
         long.value = helper.longitude;
 
+        lat = helper.latitude;
+        long = helper.longitude;
+
         var mapMan = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
         var url = mapMan.getMapUrl(helper.latitude, helper.longitude);
-        console.log(url);
 
         var mapImg = document.getElementById("mapView");
         mapImg.src = url;
     }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
- document.addEventListener("DOMContentLoaded", () => {
-    updateLocation();
- });
+//  document.addEventListener("DOMContentLoaded", () => {
+//     updateLocation();
+//  });
