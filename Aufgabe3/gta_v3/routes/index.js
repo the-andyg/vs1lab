@@ -60,7 +60,9 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 
-// TODO: ... your code here ...
+router.post('/tagging', (req, res) => {
+  console.log(req.body);
+})
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
