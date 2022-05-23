@@ -5,7 +5,7 @@
  */
  // eslint-disable-next-line no-unused-vars
  class MapManager {
-    #apiKey
+    #apiKey = '6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC';
 
     /**
      * Create a new MapManager instance
@@ -37,3 +37,5 @@
         return mapQuestUrl;
     }
 }
+
+module.exports = MapManager;
