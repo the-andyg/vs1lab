@@ -22,6 +22,7 @@ const router = express.Router();
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTag = require('../models/geotag');
+const LocationHelper = require('../public/javascripts/location-helper');
 
 /**
  * The module "geotag-store" exports a class GeoTagStore. 
@@ -43,12 +44,16 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
+  console.log(req.body);
   const store = new GeoTagStore();
-  var loc = new LocationHelper();
-  LocationHelper.findLocation(cb);
+  const coords = new Array(2);
+  LocationHelper.findLocation(function (helper) {
+    coords[0] = helper.longitude;
+    coords[1] = helper.latitude;
+  })
   res.render('index', {
     taglist: store.geotags,
-    coordinates : [loc.longitude, loc.latitude]
+    coordinates : [coords[0], coords[1]]
   })
 });
 

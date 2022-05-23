@@ -32,8 +32,8 @@ class InMemoryGeoTagStore{
 
     //Include all examples from ./model/geotag-examples.js
     constructor() {
-        var examples = GeoTagExamples.tagList;
-        for(var i = 0; i < examples.length; i++) {
+        const examples = GeoTagExamples.tagList;
+        for(let i = 0; i < examples.length; i++) {
             this.addGeoTag(examples[i]);
         }
     }
@@ -48,31 +48,42 @@ class InMemoryGeoTagStore{
     }
 
     removeGeoTag(name) {
-        this.#geotags.forEach(function(tag, index) {
-            if(tag.name === name) {
-                this.#geotags.slice(index, 1);
+        for(var i = 0; i < this.#geotags.length; i++) {
+            if(this.#geotags[i] === name) {
+                this.#geotags.slice(i, 1);
             }
-        })
+        }
     }
 
     searchNearbyGeoTags(keyword, radius) {
         //search for the given geotag first
-        this.#geotags.forEach(function (tag) {
+        let matchingTags = [];
+        let i = 0;
+        for(const tag in this.#geotags) {
             if(tag.name.includes(keyword) || tag.hashtag.includes(keyword)) {
-                return getNearbyGeoTags(tag.latitude, tag.longitude, radius);
+                matchingTags[i] = this.getNearbyGeoTags(tag.latitude, tag.longitude, radius);
             }
-        })
+            i++;
+        }
+        return matchingTags;
     }
 
     getNearbyGeoTags(lat, long, radius) {
         var ret = [];
-        this.#geotags.forEach(function(tag) {
-            if((Math.abs(tag.latitude - lat) <= radius) && (Math.abs(tag.longitude - long) <= radius)) {
-                ret.push(tag)
+        for(var i = 0; i < this.#geotags.length; i++) {
+            if((Math.abs(this.#geotags[i].latitude - lat) <= radius) &&
+                (Math.abs(this.#geotags[i].longitude - long) <= radius)) {
+                ret.push(this.#geotags[i]);
             }
-        });
+        }
         return ret;
     }
+
+    /*this.#geotags.forEach(function(tag) {
+        if((Math.abs(tag.latitude - lat) <= radius) && (Math.abs(tag.longitude - long) <= radius)) {
+            ret.push(tag)
+        }
+    });*/
 }
 
 module.exports = InMemoryGeoTagStore
