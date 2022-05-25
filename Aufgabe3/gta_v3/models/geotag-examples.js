@@ -37,6 +37,7 @@ class GeoTagExamples {
         GeoTagExamples.tagList.forEach(function (item) {
             const tag = new GeoTag(item[0], item[1], item[2], item[3]);
             store.push(tag);
+            console.log(tag);
         });
         return store;
     }
