@@ -9,62 +9,38 @@
 // Try to find this output in the browser...
 
 
-/*function addTag() {
+function addTag() {
+    console.log("test")
     const inLatitude = document.getElementById("inLatitude");
-    const latitude = inLatitude.value;
-    //inLatitude.value = "";
+    //const latitude = inLatitude.value;
+    inLatitude.value = "";
     const inLongitude = document.getElementById("inLongitude");
-    const longitude = inLongitude.value;
-    //inLongitude.value = "";
+    //const longitude = inLongitude.value;
+    inLongitude.value = "";
     const inName = document.getElementById("tagName");
     const name = inName.value;
-    //inName.value = "";
+    inName.value = "";
     const inHashtag = document.getElementById("tagHashtag");
     const hashtag = inHashtag.value;
     inHashtag.value = "";
-    fetch("/tagging", {
-        headers : {
-            "Content-Type" : "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify({
-            latitude,
-            longitude,
-            name,
-            hashtag
-        })
-    })
-        .then(res => {
-            if(res.err) {
-                console.log(res.err);
-            }
-        });
-}*/
-
-
-function createMap() {
-    const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
-    const mapPicture = document.getElementById("mapView");
-    const inLatitude = document.getElementById("inLatitude");
-    const inLatitudeHid = document.getElementById("inLatitudeHid");
-    const latitude = inLatitude.value;
-    const inLongitude = document.getElementById("inLongitude");
-    const inLongitudeHid = document.getElementById("inLongitudeHid");
-    const longitude = inLongitude.value;
-    const mapView = document.getElementById("mapView");
-    console.log("before if:" + " " + inLatitude.value)
     if (inLatitude.value === "") {
         LocationHelper.findLocation(function (helper) {
             inLatitude.value = helper.latitude;
-            console.log(inLatitude.value)
             inLongitude.value = helper.longitude;
-            inLatitudeHid.value = helper.latitude;
-            inLongitudeHid.value = helper.longitude;
-            mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude, JSON.parse(mapView.dataset.tags));
         });
     } else {
-        mapPicture.src = map.getMapUrl(latitude, longitude, JSON.parse(mapView.dataset.tags));
+
     }
+}
+
+function createMap() {
+
+    LocationHelper.findLocation(function (helper) {
+        const mapView = document.getElementById("mapView");
+        const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
+        const mapPicture = document.getElementById("mapView");
+        mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude,  JSON.parse(mapView.getAttribute("data-tags")));
+    });
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation

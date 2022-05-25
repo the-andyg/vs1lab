@@ -5,7 +5,7 @@
  */
  // eslint-disable-next-line no-unused-vars
  class MapManager {
-    #apiKey = '6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC';
+    #apiKey
 
     /**
      * Create a new MapManager instance
@@ -29,7 +29,7 @@
             return "images/mapview.jpg";
         }
         let tagList = `You,${latitude},${longitude}`;
-        tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "")
+        tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.location.latitude},${tag.location.longitude}`, "")
         console.log(tagList);
         const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
@@ -37,5 +37,3 @@
         return mapQuestUrl;
     }
 }
-
-module.exports = MapManager;

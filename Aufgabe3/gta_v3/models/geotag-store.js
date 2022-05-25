@@ -5,9 +5,6 @@
  * Complete all TODOs in the code documentation.
  */
 
-const GeoTag = require("./geotag");
-const GeoTagExamples = require("../models/geotag-examples");
-
 /**
  * A class for in-memory-storage of geotags
  *
@@ -28,56 +25,44 @@ const GeoTagExamples = require("../models/geotag-examples");
  */
 class InMemoryGeoTagStore {
 
-    #tagList = [];
-
     constructor() {
-        let examples = new GeoTagExamples;
-        this.#tagList = examples.put();
+        const examples = require("../models/geotag-examples");
+        const test = new examples;
+        this.#tagList = test.put();
     }
 
+    #tagList = [];
 
-    addGeoTag(name, hashtag, latitude, longitude) {
-        this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag));
+
+    addGeoTag(tag) {
+        this.#tagList.push(tag);
     }
 
     get tagList() {
         return this.#tagList;
     }
 
-    getNearbyGeoTags(lat, long, radius) {
-        let tags = [];
-        for (let i = 0; i < this.#tagList.length; i++) {
-            let diffx = this.#tagList[i].latitude - lat;
-            let diffy = this.#tagList[i].longitude - long;
-            let diff = Math.sqrt((diffx * diffx) + (diffy * diffy));
-            if (diff < radius) {
-                tags.push(this.#tagList[i]);
+    getNearbyGeoTags(name) {
+        this.#tagList.forEach(function (item) {
+            if (item.name === name) {
+                return item;
             }
-        }
-        return tags;
+        });
+        return null;
     }
 
-    searchNearbyGeoTags(keyword, radius) {
-        let tags = [];
-        for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
-                const nearbyGeoTags = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
-                for(let i = 0; i < nearbyGeoTags.length; i++) {
-                    tags.push(nearbyGeoTags[i])
-                }
-            }
-        }
-        return tags;
+    searchNearbyGeoTags() {
+
     }
 
     removeGeoTag(name) {
-        for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
-                this.#tagList.splice(i, 1);
-                return;
-            }
-        }
+
     }
+
+
+
+
+
 }
 
 module.exports = InMemoryGeoTagStore;
