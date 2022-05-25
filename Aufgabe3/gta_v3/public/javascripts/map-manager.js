@@ -1,4 +1,4 @@
-// File origin: VS1LAB A2 
+// File origin: VS1LAB A2
 
 /**
  * A class to help using the MapQuest map service.
@@ -28,10 +28,9 @@
             console.log("No API key provided.");
             return "images/mapview.jpg";
         }
-
         let tagList = `You,${latitude},${longitude}`;
         tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.location.latitude},${tag.location.longitude}`, "")
-
+        console.log(tagList);
         const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 

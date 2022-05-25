@@ -7,9 +7,9 @@
 
 /**
  * A class representing example geoTags at HKA
- * 
+ *
  * TODO: populate your InMemoryGeoTagStore with these tags
- * 
+ *
  */
 class GeoTagExamples {
     /**
@@ -29,6 +29,16 @@ class GeoTagExamples {
             ['Building B', 49.016843, 8.391372, '#campus'],
             ['Building K', 49.013190, 8.392090, '#campus'],
         ];
+    }
+
+    put() {
+        let store = [];
+        const GeoTag = require("../models/geotag");
+        GeoTagExamples.tagList.forEach(function (item) {
+            const tag = new GeoTag(item[0], item[1], item[2], item[3]);
+            store.push(tag);
+        });
+        return store;
     }
 }
 

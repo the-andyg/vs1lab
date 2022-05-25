@@ -1,243 +1,247 @@
 /*
-  File origin: VS1LAB A1b  
+  File origin: VS1LAB A1b
 
   CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
-  CSS variables used for clarity and themability (e.g. through SSR). 
+  CSS variables used for clarity and themability (e.g. through SSR).
   Inherited box sizing used for ease of including 3rd party content-box components.
 */
 
 /* Global styling */
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 
-  /* This approach prevents issues with 3rd party content-box components */
-  box-sizing: inherit;
+    /* This approach prevents issues with 3rd party content-box components */
+    box-sizing: inherit;
 }
 
 
 /* Variables (example: see declaration for "a" below) */
 
 :root {
-  --link-color: #00B7FF;
-  --background-color: #efefef;
-  --border-color: #cdcdcd;
-  --gray-color: #666;
+    --link-color: #00B7FF;
+    --background-color: #efefef;
+    --border-color: #cdcdcd;
+    --gray-color: #666;
 }
 
 
 /* HTML element styles */
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 a {
-  color: var(--link-color);
+    color: var(--link-color);
 }
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+input {
+    display: block;
+    height: 30px;
+    width: 200px;
+    border: solid;
+    border-color: var(--border-color);
+    border-width: 1px;
+    padding-left: 10px;
+}
 
+label {
+    display: block;
+}
+
+button {
+    height: 30px;
+    width: 200px;
+    border: solid;
+    border-color: var(--border-color);
+    border-width: 1px;
+}
 
 /* Grid styles (no changes required) */
 
 .row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
 }
 
 .col-1 {
-  width: calc(8.33% - 1rem);
+    width: calc(8.33% - 1rem);
 }
 
 .col-2 {
-  width: calc(16.66% - 1rem);
+    width: calc(16.66% - 1rem);
 }
 
 .col-3 {
-  width: calc(25% - 1rem);
+    width: calc(25% - 1rem);
 }
 
 .col-4 {
-  width: calc(33.33% - 1rem);
+    width: calc(33.33% - 1rem);
 }
 
 .col-5 {
-  width: calc(41.66% - 1rem);
+    width: calc(41.66% - 1rem);
 }
 
 .col-6 {
-  width: calc(50% - 1rem);
+    width: calc(50% - 1rem);
 }
 
 .col-7 {
-  width: calc(58.33% - 1rem);
+    width: calc(58.33% - 1rem);
 }
 
 .col-8 {
-  width: calc(66.66% - 1rem);
+    width: calc(66.66% - 1rem);
 }
 
 .col-9 {
-  width: calc(75% - 1rem);
+    width: calc(75% - 1rem);
 }
 
 .col-10 {
-  width: calc(83.33% - 1rem);
+    width: calc(83.33% - 1rem);
 }
 
 .col-11 {
-  width: calc(91.66% - 1rem);
+    width: calc(91.66% - 1rem);
 }
 
 .col-12 {
-  width: calc(100% - 1rem);
+    width: calc(100% - 1rem);
 }
 
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
-.header__image {
-  min-width: 60px;
-  width: 3%;
+.header {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 40px;
+    height: 100px;
+    border-bottom: var(--border-color) 1px solid;
 }
 
-header {
-  padding: 4%;
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--border-color);
-  align-items: center;
+.header__image {
+    height: 100%;
 }
+
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
-main {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px 40px;
-  padding: 4%;
+.main {
+    padding: 40px 40px 40px 40px;
+    gap: 100px;
+    margin-bottom: 100px;
 }
 
-section.discovery {
-  flex-grow: 1;
+.fieldset {
+    padding: 10px;
+    border-color: var(--border-color);
+    border-width: 1px;
 }
-
-fieldset {
-  padding: 12px;
-}
-
-input {
-  width: 100%;
-  display: block;
-  padding: 4px;
-  border-radius: 4px;
-  border-color: var(--border-color);
-  margin-bottom: 8px;
-  border-style: double;
-}
-
-label {
-  line-height: 22px;
-}
-
-legend {
-  font-weight: bold;
-}
-
-
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
 
+#inLatitude, #inLongitude {
+    background-color: var(--background-color);
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
-.discovery input {
-  width: 20%;
-}
-
 .discovery__wrapper {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 12px;
-
+    margin-top: 30px;
 }
 
-ul.discovery__results li {
-  border: 1px solid var(--border-color);
-  padding: 8px;
-  background-color: var(--background-color);
-  list-style-type: none;
-  margin-bottom: 8px;
-  color: var(--link-color);
+li {
+    background-color: var(--background-color);
+    border: var(--border-color) 1px solid;
+    color: var(--link-color);
+    list-style-type: none;
+    margin: 0 20px 20px 0;
+    height: 50px;
+    padding: 10px;
 }
-
-ul.discovery__results li:last-of-type {
-  margin-bottom: 8px;
-}
-
-.discovery__map span {
-  display: block;
-}
-
-
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
-footer {
-  background-color: var(--background-color);
-  padding: 2% 4%;
-  border-top: 1px solid var(--border-color);
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
+.footer {
+    background-color: var(--background-color);
+    padding: 40px;
+    height: 100px;
+    width: 100%;
+    border-top: var(--border-color) 1px solid;
+    position: fixed;
+    bottom: 0;
 }
+
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media (max-width: 1500px) {
 
-@media(max-width: 980px) {
-  input {
-    width: 100%!important;
-  }
+    .discovery__wrapper {
+        display: block;
+    }
 
-  .main__tagging {
-    width: 100%;
-  }
+    .discovery__taglist {
+        width: 100%;
+    }
 
-  .discovery__wrapper {
-    flex-direction: column;
-  }
+    li {
+        margin: 0 0 20px 0 !important;
+    }
+}
 
-  .discovery__taglist {
-    width: 100%;
-  }
+@media screen and (max-width: 1000px) {
 
-  .discovery__map, .discovery__map img {
-    width: 100%;
-    display: block;
-  }
+    @media (max-width: 1000px) {
+        input {
+            width: 100% !important;
+        }
+
+        .main__tagging {
+            width: 100%;
+        }
+
+        .main__discovery {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .main {
+            display: block;
+        }
+
+        .discovery__wrapper {
+            display: block;
+        }
+
+        .discovery__taglist {
+            width: 100% !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mapView {
+            width: 100%;
+        }
+    }
 }
