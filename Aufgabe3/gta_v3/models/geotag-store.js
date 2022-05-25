@@ -27,17 +27,18 @@ const GeoTag = require("./geotag");
  */
 class InMemoryGeoTagStore {
 
+    #tagList = [];
+
     constructor() {
         const GeoTagExamples = require("../models/geotag-examples");
         const GeoTag = require("../models/geotag");
         GeoTagExamples.tagList.forEach(function (item) {
             const tag = new GeoTag(item[0], item[1], item[2], item[3]);
-            addGeoTag(tag);
+            this.#tagList.push(tag);
             console.log(tag);
         });
     }
 
-    #tagList = [];
 
 
     addGeoTag(tag) {
