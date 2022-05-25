@@ -41,7 +41,6 @@ class InMemoryGeoTagStore {
     }
 
 
-
     addGeoTag(tag) {
         this.#tagList.push(tag);
     }
