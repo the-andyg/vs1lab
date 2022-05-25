@@ -64,13 +64,13 @@
             <div class="discovery__taglist col-12">
                 <ul class="discovery__results" id="discoveryResults">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
+                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %> ) <%= gtag.hashtag %> </li>
                     <% });%>
                 </ul>
             </div>
 
             <div class="discovery__map">
-                <img src="mapview.jpg" alt="a map with locations" id="mapView" data-tags=<%= JSON.stringify(taglist) %> />
+                <img src="mapview.jpg" alt="a map with locations" id="mapView" data-tags=<% console.log(taglist[0][0]) %> />
                 <br>
                 <span>Result map</span>
             </div>
