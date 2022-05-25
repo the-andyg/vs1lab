@@ -30,7 +30,6 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
-const store = new GeoTagStore();
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -43,6 +42,7 @@ const store = new GeoTagStore();
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
+  const store = new GeoTagStore();
   const tagList = store.tagList;
   res.render('index', { taglist: tagList });
   const LocationHelper = require("../public/javascripts/location-helper");
