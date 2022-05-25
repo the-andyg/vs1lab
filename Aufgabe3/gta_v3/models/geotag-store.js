@@ -33,7 +33,7 @@ class InMemoryGeoTagStore {
     constructor() {
         let list = GeoTagExamples.tagList;
         for (let i = 0; i < list.length; i++) {
-            const tag = new GeoTag(list[i][0], list[i][1], list[i][2], list[i][3]);
+            let tag = new GeoTag(list[i][0], list[i][1], list[i][2], list[i][3]);
             console.log(list[i][0]);
             this.addGeoTag(tag);
             console.log(tag);
