@@ -6,6 +6,7 @@
  */
 
 const GeoTag = require("./geotag");
+const GeoTagExamples = require("../models/geotag-examples");
 
 /**
  * A class for in-memory-storage of geotags
@@ -30,13 +31,13 @@ class InMemoryGeoTagStore {
     #tagList = [];
 
     constructor() {
-        const GeoTagExamples = require("../models/geotag-examples");
-        const GeoTag = require("../models/geotag");
-        GeoTagExamples.tagList.forEach(function (item) {
-            const tag = new GeoTag(item[0], item[1], item[2], item[3]);
-            this.#tagList.push(tag);
+        let list = GeoTagExamples.tagList;
+        for (let i = 0; i < list.length; i++) {
+            const tag = new GeoTag(list[i][0], list[i][1], list[i][2], list[i][3]);
+            console.log(list[i][0]);
+            this.addGeoTag(tag);
             console.log(tag);
-        });
+        }
     }
 
 
