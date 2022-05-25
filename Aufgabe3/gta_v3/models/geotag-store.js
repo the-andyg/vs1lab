@@ -5,6 +5,8 @@
  * Complete all TODOs in the code documentation.
  */
 
+const GeoTag = require("./geotag");
+
 /**
  * A class for in-memory-storage of geotags
  *
@@ -26,9 +28,13 @@
 class InMemoryGeoTagStore {
 
     constructor() {
-        const examples = require("../models/geotag-examples");
-        const test = new examples;
-        this.#tagList = test.put();
+        const GeoTagExamples = require("../models/geotag-examples");
+        const GeoTag = require("../models/geotag");
+        GeoTagExamples.tagList.forEach(function (item) {
+            const tag = new GeoTag(item[0], item[1], item[2], item[3]);
+            addGeoTag(tag);
+            console.log(tag);
+        });
     }
 
     #tagList = [];
