@@ -10,7 +10,6 @@
 
 
 function addTag() {
-    console.log("test")
     const inLatitude = document.getElementById("inLatitude");
     const latitude = inLatitude.value;
     inLatitude.value = "";
@@ -23,15 +22,25 @@ function addTag() {
     const inHashtag = document.getElementById("tagHashtag");
     const hashtag = inHashtag.value;
     inHashtag.value = "";
-    if (inLatitude.value === "") {
-        LocationHelper.findLocation(function (helper) {
-            inLatitude.value = helper.latitude;
-            inLongitude.value = helper.longitude;
+    fetch("/tagging", {
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            latitude,
+            longitude,
+            name,
+            hashtag
+        })
+    })
+        .then(res => {
+            if(res.err) {
+                console.log(res.err);
+            }
         });
-    } else {
-
-    }
 }
+
 
 function createMap() {
     const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
@@ -43,6 +52,8 @@ function createMap() {
     const mapView = document.getElementById("mapView");
     if (inLatitude.value === "") {
         LocationHelper.findLocation(function (helper) {
+            inLatitude.value = helper.latitude;
+            inLongitude.value = helper.longitude;
             mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude, JSON.parse(mapView.dataset.tags));
         });
     } else {
