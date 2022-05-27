@@ -45,7 +45,6 @@ const store = new GeoTagStore();
 router.get('/', (req, res) => {
   const tagList = store.tagList;
   res.render('index', { taglist: tagList });
-  const LocationHelper = require("../public/javascripts/location-helper");
 });
 
 /**
