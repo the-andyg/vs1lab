@@ -34,12 +34,16 @@ function addTag() {
 }
 
 function createMap() {
-
+    const mapView = document.getElementById("mapView");
+    console.log(mapView.dataset.tags);
+    mapView.getAttribute("data-tags");
+    let atr = mapView.dataset.tags;
+    let atri = JSON.parse(atr);
+    console.log(atri);
     LocationHelper.findLocation(function (helper) {
-        const mapView = document.getElementById("mapView");
         const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
         const mapPicture = document.getElementById("mapView");
-        mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude,  JSON.parse(mapView.getAttribute("data-tags")));
+        mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude, atri);
     });
 }
 
