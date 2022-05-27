@@ -59,7 +59,6 @@ function createMap() {
     } else {
         mapPicture.src = map.getMapUrl(latitude, longitude, JSON.parse(mapView.dataset.tags));
     }
-
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation

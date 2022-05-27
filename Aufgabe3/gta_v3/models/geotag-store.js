@@ -46,16 +46,22 @@ class InMemoryGeoTagStore {
     }
 
     getNearbyGeoTags(name) {
-        this.#tagList.forEach(function (item) {
-            if (item.name === name) {
-                return item;
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name) {
+
+                return this.#tagList[i];
             }
-        });
-        return null;
+        }
     }
 
     searchNearbyGeoTags() {
 
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name) {
+
+                return this.#tagList[i];
+            }
+        }
     }
 
     removeGeoTag(name) {
