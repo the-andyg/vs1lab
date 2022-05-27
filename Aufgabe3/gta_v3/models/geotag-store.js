@@ -32,10 +32,8 @@ class InMemoryGeoTagStore {
 
     constructor() {
         let list = GeoTagExamples.tagList;
-        for (let i = 0; i < list.length; i++) {
-            let tag = new GeoTag(list[i][0], list[i][1], list[i][2], list[i][3]);
-            this.addGeoTag(tag);
-        }
+        let examples = new GeoTagExamples;
+        this.#tagList = examples.put();
     }
 
 
@@ -61,12 +59,15 @@ class InMemoryGeoTagStore {
     }
 
     removeGeoTag(name) {
-
+        let pos = -1;
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name) {
+                pos = i;
+                break;
+            }
+        }
+        this.#tagList.splice(pos, 1);
     }
-
-
-
-
 
 }
 
