@@ -12,34 +12,34 @@
 class GeoTag {
 
     constructor(name, latitude, longitude, hashtag) {
-        this.#latitude = latitude;
-        this.#longitude = longitude;
-        this.#name = name;
-        this.#hashtag = hashtag;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.hashtag = hashtag;
     }
 
-    #latitude;
+    latitude;
 
     get latitude() {
-        return this.#latitude;
+        return this.latitude;
     }
 
-    #longitude;
+    longitude;
 
     get longitude() {
-        return this.#longitude;
+        return this.longitude;
     }
 
-    #name;
+    name;
 
     get name() {
-        return this.#name;
+        return this.name;
     }
 
-    #hashtag;
+    hashtag;
 
     get hashtag() {
-        return this.#hashtag;
+        return this.hashtag;
     }
 
 }
