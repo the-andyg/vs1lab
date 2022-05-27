@@ -1,4 +1,4 @@
-// File origin: VS1LAB A2 
+// File origin: VS1LAB A2
 
 /**
  * A class to help using the HTML5 Geolocation API.
@@ -23,8 +23,8 @@ class LocationHelper {
 
     /**
      * Create LocationHelper instance if coordinates are known.
-     * @param {string} latitude 
-     * @param {string} longitude 
+     * @param {string} latitude
+     * @param {string} longitude
      */
     constructor(latitude, longitude) {
         this.#latitude = (parseFloat(latitude)).toFixed(5);
