@@ -66,11 +66,6 @@ app.get("/map-manager.js", function (req,res){
     res.sendFile(__dirname + "/public/javascripts/map-manager.js")
 });
 
-// app.get("/discovery", function (req, res) {
-//     const store = require("InMemoryGeoTagStore");
-//     res.sendFile(store.tagList);
-// });
-
 // Set dedicated script for routing
 app.use('/', indexRouter);
 
