@@ -31,50 +31,48 @@ class InMemoryGeoTagStore {
     #tagList = [];
 
     constructor() {
-        let list = GeoTagExamples.tagList;
         let examples = new GeoTagExamples;
         this.#tagList = examples.put();
     }
 
 
-    addGeoTag(tag) {
-        this.#tagList.push(tag);
+    addGeoTag(name, hashtag, latitude, longitude) {
+        this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag));
     }
 
     get tagList() {
         return this.#tagList;
     }
 
-    getNearbyGeoTags(name) {
+    getNearbyGeoTags(lat, long, radius) {
+        let tags = [];
         for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name === name) {
-
-                return this.#tagList[i];
+            if ((Math.abs(this.#tagList[i].latitude - lat) <= radius) &&
+                (Math.abs(this.#tagList[i].longitude - long) <= radius)) {
+                tags.push(this.#tagList[i]);
             }
         }
+        return tags;
     }
 
-    searchNearbyGeoTags() {
-
+    searchNearbyGeoTags(keyword, radius) {
+        let tags = [];
         for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name === name) {
-
-                return this.#tagList[i];
+            if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
+                tags[i] = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
             }
         }
+        return tags;
     }
 
     removeGeoTag(name) {
-        let pos = -1;
         for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name === name) {
-                pos = i;
-                break;
+            if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
+                this.#tagList.splice(i, 1);
+                return;
             }
         }
-        this.#tagList.splice(pos, 1);
     }
-
 }
 
 module.exports = InMemoryGeoTagStore;
