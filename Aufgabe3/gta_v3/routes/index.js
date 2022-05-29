@@ -64,9 +64,9 @@ router.get('/', (req, res) => {
 
 // TODO: ... your code here ...
 router.post("/tagging", (req, res) => {
-  const geoTag = new GeoTag(req.body.name, req.body.latitude, req.body.longitude, req.body.hashtag);
-  store.addGeoTag(geoTag);
+  store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
 });
+
 /**
  * Route '/discovery' for HTTP 'POST' requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)
