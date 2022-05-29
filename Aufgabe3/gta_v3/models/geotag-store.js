@@ -47,8 +47,10 @@ class InMemoryGeoTagStore {
     getNearbyGeoTags(lat, long, radius) {
         let tags = [];
         for (let i = 0; i < this.#tagList.length; i++) {
-            if ((Math.abs(this.#tagList[i].latitude - lat) <= radius) &&
-                (Math.abs(this.#tagList[i].longitude - long) <= radius)) {
+            let diffx = this.#tagList[i].latitude - lat;
+            let diffy = this.#tagList[i].longitude - long;
+            let diff = Math.sqrt((diffx * diffx) + (diffy * diffy));
+            if (diff < radius) {
                 tags.push(this.#tagList[i]);
             }
         }
@@ -59,7 +61,7 @@ class InMemoryGeoTagStore {
         let tags = [];
         for (let i = 0; i < this.#tagList.length; i++) {
             if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
-                tags[i] = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
+                tags[i] = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius);
             }
         }
         return tags;
