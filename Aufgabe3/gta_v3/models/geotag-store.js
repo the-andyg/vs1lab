@@ -61,7 +61,11 @@ class InMemoryGeoTagStore {
         let tags = [];
         for (let i = 0; i < this.#tagList.length; i++) {
             if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
-                tags[i] = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius);
+                const nearbyGeoTags = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
+                for(let i = 0; i < nearbyGeoTags.length; i++) {
+                    console.log(nearbyGeoTags[i])
+                    tags.push(nearbyGeoTags[i])
+                }
             }
         }
         return tags;
