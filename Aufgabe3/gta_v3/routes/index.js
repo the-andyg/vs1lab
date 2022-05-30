@@ -64,9 +64,7 @@ router.get('/', (req, res) => {
 
 // TODO: ... your code here ...
 router.post("/tagging", (req, res) => {
-  console.log(req.body)
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-
   res.render('index', { taglist: tagList });
 });
 
@@ -88,7 +86,6 @@ router.post("/tagging", (req, res) => {
 
 // TODO: ... your code here ...
 router.post("/discovery", (req, res) => {
-  console.log(req.body.searchterm);
   tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.0001)
   res.render('index', { taglist: tagList });
 });

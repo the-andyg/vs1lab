@@ -63,7 +63,6 @@ class InMemoryGeoTagStore {
             if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
                 const nearbyGeoTags = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
                 for(let i = 0; i < nearbyGeoTags.length; i++) {
-                    console.log(nearbyGeoTags[i])
                     tags.push(nearbyGeoTags[i])
                 }
             }
