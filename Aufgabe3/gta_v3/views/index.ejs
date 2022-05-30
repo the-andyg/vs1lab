@@ -32,14 +32,16 @@
             <fieldset class="fieldsetTagging fieldset">
                 <legend>Add new GeoTag</legend>
                 <label for="inLatitude">Latitude:</label> <br>
-                <input id="inLatitude" placeholder="49.01379" disabled> <br>
+                <input id="inLatitude" name="latitude" placeholder="49.01379" disabled> <br>
+                <input type="hidden" id="inLatitudeHid" name="latitude"> <br>
                 <label for="inLongitude">Longitude:</label> <br>
                 <input id="inLongitude" placeholder="8.390071" disabled> <br>
+                <input type="hidden" id="inLongitudeHid" name="longitude"> <br>
                 <label for="tagName">Name:</label> <br>
-                <input id="tagName" placeholder="e.g. Central Berlin" maxlength="10" required> <br>
+                <input id="tagName" name="name" placeholder="e.g. Central Berlin" minlength="2" maxlength="10" required> <br>
                 <label for="tagHashtag">Hashtag:</label> <br>
-                <input id="tagHashtag" placeholder="e.g. #ber" pattern="^#[a-z]{1,10}$"> <br>
-                <button type="submit" onclick="addTag()">Add Tag</button>
+                <input id="tagHashtag" name="hashtag" placeholder="e.g. #ber" pattern="^#[a-z]{1,10}$"> <br>
+                <button type="submit">Add Tag</button>
             </fieldset>
         </form>
         <!-- ############### VS1Lab 1a Form 1 End -->
@@ -54,7 +56,7 @@
             <fieldset class="fieldsetDiscovery fieldset">
                 <legend>Search</legend>
                 <label for="searchBar">Search term or keywords:</label> <br>
-                <input id="searchBar" placeholder="e.g. Berlin"> <br>
+                <input id="searchBar" name="searchterm" placeholder="e.g. Berlin"> <br>
                 <button type="submit">Search</button>
             </fieldset>
         </form>
