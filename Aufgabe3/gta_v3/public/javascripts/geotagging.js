@@ -41,7 +41,6 @@
         });
 }*/
 
-
 function createMap() {
     const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
     const mapPicture = document.getElementById("mapView");
