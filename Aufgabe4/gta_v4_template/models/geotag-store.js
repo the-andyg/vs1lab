@@ -35,19 +35,9 @@ class InMemoryGeoTagStore {
         this.#tagList = examples.put();
     }
 
-    addTag(geotag) {
-        this.#tagList.push(geotag);
-        return this.#tagList.length - 1;
-    }
-
-    overwriteTag(geotag, pos) {
-        this.#tagList[pos] = geotag;
-        return this.#tagList.length - 1;
-    }
 
     addGeoTag(name, hashtag, latitude, longitude) {
         this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag));
-        return this.#tagList.length - 1;
     }
 
     get tagList() {
@@ -80,17 +70,13 @@ class InMemoryGeoTagStore {
         return tags;
     }
 
-    // removeGeoTag(name) {
-    //     for (let i = 0; i < this.#tagList.length; i++) {
-    //         if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
-    //             this.#tagList.splice(i, 1);
-    //             return;
-    //         }
-    //     }
-    // }
-
-    removeGeoTagById(id) {
-        this.#tagList[id] = null;
+    removeGeoTag(name) {
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
+                this.#tagList.splice(i, 1);
+                return;
+            }
+        }
     }
 }
 

@@ -41,7 +41,6 @@
         });
 }*/
 
-
 function createMap() {
     const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
     const mapPicture = document.getElementById("mapView");
@@ -52,7 +51,8 @@ function createMap() {
     const inLongitudeHid = document.getElementById("inLongitudeHid");
     const longitude = inLongitude.value;
     const mapView = document.getElementById("mapView");
-    if (inLatitude.value === "") {
+    if (latitude === "") {
+        console.log("standort")
         LocationHelper.findLocation(function (helper) {
             inLatitude.value = helper.latitude;
             inLongitude.value = helper.longitude;
@@ -61,6 +61,7 @@ function createMap() {
             mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude, JSON.parse(mapView.dataset.tags));
         });
     } else {
+        console.log("ohne standort")
         mapPicture.src = map.getMapUrl(latitude, longitude, JSON.parse(mapView.dataset.tags));
     }
 }
