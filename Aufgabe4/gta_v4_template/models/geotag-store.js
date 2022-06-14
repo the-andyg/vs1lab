@@ -78,6 +78,15 @@ class InMemoryGeoTagStore {
             }
         }
     }
+
+    removeGeoTag(name) {
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
+                this.#tagList.splice(i, 1);
+                return;
+            }
+        }
+    }
 }
 
 module.exports = InMemoryGeoTagStore;
