@@ -101,7 +101,10 @@ router.post("/discovery", (req, res) => {
  */
 
 router.get("/api/geotags", (req, res) => {
-  if(req.body.hasAttribute("searchterm")) {
+  if(coords["latitude"] && coords["longitude"]) {
+    tagList = store.getNearbyGeoTags(coords["latitude"], coords["longitude"], 0.05)
+  }
+  else if(req.body.hasAttribute("searchterm")) {
     tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.05)
   }
 });
@@ -181,6 +184,8 @@ router.delete("/api/geotags:id", (req, res) => {
 router.post("/navigationData", (req, res) => {
   coords["lat"] = req.body.lat;
   coords["long"] = req.body.long;
+  //console.log(coords);
+  //res.send();
 })
 
 module.exports = router;
