@@ -42,6 +42,29 @@
 }*/
 
 
+
+async function deliverLocation(lat, long) {
+
+    let arr = {
+        lat: lat,
+        long: long
+    }
+
+    await fetch("/navigationData", {
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(arr)
+    }).then(res => {
+        alert("coords have been sent")
+        if(res.err) {
+            console.log(err);
+        }
+    });
+}
+
+
 function createMap() {
     const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
     const mapPicture = document.getElementById("mapView");
@@ -52,14 +75,13 @@ function createMap() {
     const inLongitudeHid = document.getElementById("inLongitudeHid");
     const longitude = inLongitude.value;
     const mapView = document.getElementById("mapView");
-    console.log("before if:" + " " + inLatitude.value)
     if (inLatitude.value === "") {
         LocationHelper.findLocation(function (helper) {
             inLatitude.value = helper.latitude;
-            console.log(inLatitude.value)
             inLongitude.value = helper.longitude;
             inLatitudeHid.value = helper.latitude;
             inLongitudeHid.value = helper.longitude;
+            deliverLocation(helper.latitude, helper.longitude)
             mapPicture.src = map.getMapUrl(helper.latitude, helper.longitude, JSON.parse(mapView.dataset.tags));
         });
     } else {

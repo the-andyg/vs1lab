@@ -62,7 +62,6 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 
-// TODO: ... your code here ...
 router.post("/tagging", (req, res) => {
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
   res.render('index', { taglist: tagList });
@@ -86,7 +85,7 @@ router.post("/tagging", (req, res) => {
 
 // TODO: ... your code here ...
 router.post("/discovery", (req, res) => {
-  tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.0001)
+  tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.05)
   res.render('index', { taglist: tagList });
 });
 
