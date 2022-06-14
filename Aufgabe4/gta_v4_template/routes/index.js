@@ -28,6 +28,7 @@ const GeoTag = require('../models/geotag');
 const GeoTagStore = require('../models/geotag-store');
 const store = new GeoTagStore();
 let tagList = store.tagList;
+let coords = [];
 
 /**
  * Route '/' for HTTP 'GET' requests.
@@ -56,7 +57,7 @@ router.get('/', (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 
-// TODO: ... your code here ...
+
 
 
 /**
@@ -115,5 +116,12 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+
+router.post("/navigationData", (req, res) => {
+  coords["lat"] = req.body.lat;
+  coords["long"] = req.body.long;
+  res.send();
+  console.log(coords);
+});
 
 module.exports = router;

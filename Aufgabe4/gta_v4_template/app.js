@@ -1,4 +1,4 @@
-// File origin: VS1LAB A3
+// File origin: VS1LAB A4
 
 /**
  * This script configures the main express app of the GeoTag server.
