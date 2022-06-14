@@ -60,8 +60,11 @@ router.get('/', (req, res) => {
  */
 
 router.post("/tagging", (req, res) => {
+  console.log("form arrived in tagging")
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-  res.render('index', { taglist: tagList });
+  let taglist = store.tagList
+  console.log(taglist)
+  res.json({test : "test"});
 });
 
 /**
@@ -80,7 +83,6 @@ router.post("/tagging", (req, res) => {
  * by radius and keyword.
  */
 
-// TODO: ... your code here ...
 router.post("/discovery", (req, res) => {
   tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
   res.render('index', { taglist: tagList })
@@ -125,11 +127,10 @@ router.get("/api/geotags", (req, res) => {
 
 router.post("/api/geotags", (req, res) => {
   const id = store.addTag(req.body.geotag);
-  res.set("GeoURL", window.location.origin + id);
+  res.setHeader("GeoURL", window.location.origin + "/api/geotags/" + id);
   tagList = store.tagList;
   res.render('index', { taglist: tagList });
 });
-
 
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
@@ -143,7 +144,7 @@ router.post("/api/geotags", (req, res) => {
 
 router.get("/api/geotags:id", (req, res) => {
   console.log(req.params)
-  res.send(tagList[req.params[0]])
+  res.render('index', { taglist: store.tagList });
 });
 
 
@@ -187,8 +188,8 @@ router.delete("/api/geotags:id", (req, res) => {
 router.post("/navigationData", (req, res) => {
   coords["lat"] = req.body.lat;
   coords["long"] = req.body.long;
-  //console.log(coords);
-  //res.send();
-})
+  console.log(coords);
+  res.sendStatus(200);
+});
 
 module.exports = router;

@@ -176,7 +176,8 @@ li {
     color: var(--link-color);
     list-style-type: none;
     margin: 0 20px 20px 0;
-    height: 50px;
+    margin-right: 20px;
+    height: fit-content;
     padding: 10px;
 }
 
@@ -244,4 +245,21 @@ li {
             width: 100%;
         }
     }
+}
+
+.discovery__results li.geotag-item {
+    min-height: 60px;
+}
+
+/* Styles for Edit Buttons in Taglist */
+.discovery__results li .geotag-content {
+    display: block;
+}
+
+.discovery__results li .geotag-editables {
+    display: block;
+}
+
+.discovery__results li .geotag-editables button {
+    width: calc(33% - 1rem);
 }

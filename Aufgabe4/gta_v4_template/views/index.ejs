@@ -64,10 +64,17 @@
         <!-- ############### VS1Lab 1a Form 2 End -->
 
         <div class="discovery__wrapper row">
-            <div class="discovery__taglist col-12">
+            <div class="discovery__taglist col-6">
                 <ul class="discovery__results" id="discoveryResults">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %> ) <%= gtag.hashtag %> </li>
+                        <li class="geotag-item">
+                            <div class="geotag-content" > <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %> ) <%= gtag.hashtag %></div><br>
+                            <div class="geotag-editables">
+                                <button data-id=<%= gtag.id %> class="geotag-editable" onclick="remove(this.dataset.id)">DELETE</button>
+                                <button data-id=<%= gtag.id %> data-latitude=<%= gtag.latitude %> data-longitude=<%= gtag.longitude %> class="geotag-editable" onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">EDIT</button>
+                                <button data-id=<%= gtag.id %> class="geotag-editable">REFRESH</button>
+                            </div>
+                        </li>
                     <% });%>
                 </ul>
             </div>

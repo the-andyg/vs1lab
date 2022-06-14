@@ -170,7 +170,4 @@ function createMap() {
     }
 }
 
-// Wait for the page to fully load its DOM content, then call updateLocation
-document.addEventListener("DOMContentLoaded", () => {
-    createMap();
-});
+
