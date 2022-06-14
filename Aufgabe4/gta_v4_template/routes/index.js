@@ -82,8 +82,9 @@ router.post("/tagging", (req, res) => {
 
 // TODO: ... your code here ...
 router.post("/discovery", (req, res) => {
-  tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.05)
-  res.render('index', { taglist: tagList });
+  tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+  res.render('index', { taglist: tagList })
+  res.send();
 });
 
 // API routes (A4)
@@ -161,8 +162,7 @@ router.get("/api/geotags:id", (req, res) => {
  */
 
 router.put("/api/geotags:id", (req, res) => {
-  console.log(req.params)
-  store.overwriteTag(req.body.geotag, req.params[i])
+  store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
   tagList = store.tagList;
 });
 
@@ -179,7 +179,9 @@ router.put("/api/geotags:id", (req, res) => {
  */
 
 router.delete("/api/geotags:id", (req, res) => {
-  store.removeGeoTagById(req.params[0]);
+  store.removeGeoTagById(req.params.id);
+  tagList = store.tagList;
+  res.render('index', { taglist: tagList });
 });
 
 router.post("/navigationData", (req, res) => {

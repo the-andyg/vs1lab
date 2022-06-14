@@ -33,9 +33,11 @@ class GeoTagExamples {
 
     put() {
         let store = [];
+        let id = 0;
         const GeoTag = require("../models/geotag");
         GeoTagExamples.tagList.forEach(function (item) {
-            const tag = new GeoTag(item[0], item[1], item[2], item[3]);
+            const tag = new GeoTag(item[0], item[1], item[2], item[3], id);
+            id++;
             store.push(tag);
         });
         return store;

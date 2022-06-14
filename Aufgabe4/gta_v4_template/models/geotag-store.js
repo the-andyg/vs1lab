@@ -29,10 +29,12 @@ const GeoTagExamples = require("../models/geotag-examples");
 class InMemoryGeoTagStore {
 
     #tagList = [];
+    id;
 
     constructor() {
         let examples = new GeoTagExamples;
         this.#tagList = examples.put();
+        this.id = 11;
     }
 
     addTag(geotag) {
@@ -40,13 +42,16 @@ class InMemoryGeoTagStore {
         return this.#tagList.length - 1;
     }
 
-    overwriteTag(geotag, pos) {
-        this.#tagList[pos] = geotag;
-        return this.#tagList.length - 1;
+    overwriteTag(id, name, hashtag) {
+        const i = this.#getGeoTagById(id);
+        this.#tagList[i].name = name;
+        this.#tagList[i].hashtag = hashtag;
+        console.log(this.#tagList[i]);
     }
 
     addGeoTag(name, hashtag, latitude, longitude) {
-        this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag));
+        this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag, this.id));
+        this.id++;
         return this.#tagList.length - 1;
     }
 
@@ -69,35 +74,24 @@ class InMemoryGeoTagStore {
 
     searchNearbyGeoTags(keyword, radius) {
         let tags = [];
-        for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name.includes(keyword) || this.#tagList[i].hashtag.includes(keyword)) {
-                const nearbyGeoTags = this.getNearbyGeoTags(this.#tagList[i].latitude, this.#tagList[i].longitude, radius)
-                for(let i = 0; i < nearbyGeoTags.length; i++) {
-                    tags.push(nearbyGeoTags[i])
-                }
+        let geotags = this.getNearbyGeoTags(lat,long,radius);
+        console.log(geotags);
+        for (let i = 0; i < geotags.length; i++) {
+            if (geotags[i].name.includes(keyword) || geotags[i].hashtag.includes(keyword)) {
+                    tags.push(this.#tagList[i]);
             }
         }
         return tags;
     }
 
-    // removeGeoTag(name) {
-    //     for (let i = 0; i < this.#tagList.length; i++) {
-    //         if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
-    //             this.#tagList.splice(i, 1);
-    //             return;
-    //         }
-    //     }
-    // }
-
     removeGeoTagById(id) {
-        this.#tagList[id] = null;
+        this.#tagList.splice(this.#getGeoTagById(id), 1);
     }
 
-    removeGeoTag(name) {
+    #getGeoTagById(id) {
         for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].name === name || this.#tagList[i].hashtag === name) {
-                this.#tagList.splice(i, 1);
-                return;
+            if (this.#tagList[i].id == id) {
+                return i;
             }
         }
     }
