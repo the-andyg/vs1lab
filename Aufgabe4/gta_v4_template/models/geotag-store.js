@@ -72,7 +72,7 @@ class InMemoryGeoTagStore {
         return tags;
     }
 
-    searchNearbyGeoTags(keyword, radius) {
+    searchNearbyGeoTags(lat, long, keyword, radius) {
         let tags = [];
         let geotags = this.getNearbyGeoTags(lat,long,radius);
         console.log(geotags);
