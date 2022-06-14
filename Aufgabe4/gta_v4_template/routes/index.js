@@ -102,11 +102,11 @@ router.post("/discovery", (req, res) => {
  */
 
 router.get("/api/geotags", (req, res) => {
-  if(coords["latitude"] && coords["longitude"]) {
-    tagList = store.getNearbyGeoTags(coords["latitude"], coords["longitude"], 0.05)
+  if(coords["lat"] && coords["long"]) {
+    tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
   }
   else if(req.body.hasAttribute("searchterm")) {
-    tagList = store.searchNearbyGeoTags(req.body.searchterm, 0.05)
+    tagList = store.searchNearbyGeoTags(coords[0],coords[1],req.body.searchterm, 0.05)
   }
 });
 
