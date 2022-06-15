@@ -60,16 +60,10 @@ router.get('/', (req, res) => {
  */
 
 router.post("/tagging", (req, res) => {
-  console.log("form arrived in tagging")
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-  let taglist = store.tagList
-  // res.json({test : "test"});
+  tagList = store.tagList
+  res.send({tagList});
 });
-
-router.get("/data", (req,res) => {
-  const taglist = store.tagList;
-  res.send({taglist});
-})
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -88,8 +82,8 @@ router.get("/data", (req,res) => {
  */
 
 router.post("/discovery", (req, res) => {
-  const taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
-  res.send({taglist});
+  tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+  res.send({tagList});
 });
 
 // API routes (A4)
@@ -113,6 +107,7 @@ router.get("/api/geotags", (req, res) => {
   else if(req.body.hasAttribute("searchterm")) {
     tagList = store.searchNearbyGeoTags(coords[0],coords[1],req.body.searchterm, 0.05)
   }
+  res.send({tagList});
 });
 
 
@@ -132,7 +127,7 @@ router.post("/api/geotags", (req, res) => {
   const id = store.addTag(req.body.geotag);
   res.setHeader("GeoURL", window.location.origin + "/api/geotags/" + id);
   tagList = store.tagList;
-  res.render('index', { taglist: tagList });
+  res.send({tagList});
 });
 
 /**
@@ -147,7 +142,8 @@ router.post("/api/geotags", (req, res) => {
 
 router.get("/api/geotags:id", (req, res) => {
   console.log(req.params)
-  res.render('index', { taglist: store.tagList });
+  tagList = store.tagList;
+  res.send({tagList});
 });
 
 
@@ -168,6 +164,7 @@ router.get("/api/geotags:id", (req, res) => {
 router.put("/api/geotags:id", (req, res) => {
   store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
   tagList = store.tagList;
+  res.send({tagList});
 });
 
 
@@ -185,13 +182,12 @@ router.put("/api/geotags:id", (req, res) => {
 router.delete("/api/geotags:id", (req, res) => {
   store.removeGeoTagById(req.params.id);
   tagList = store.tagList;
-  res.render('index', { taglist: tagList });
+  res.send({tagList});
 });
 
 router.post("/navigationData", (req, res) => {
   coords["lat"] = req.body.lat;
   coords["long"] = req.body.long;
-  console.log(coords);
   res.sendStatus(200);
 });
 

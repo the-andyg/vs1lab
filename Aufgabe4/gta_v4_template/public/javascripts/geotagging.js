@@ -23,8 +23,9 @@ function searchTag(event) {
         body: JSON.stringify({
             searchVal
         })
-    }).then(res => res.json())
-        .then(res => data(res['taglist']));
+    })
+        .then(res => res.json())
+        .then(res => createList(res['tagList']));
 }
 
 function registerEventListeners() {
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function addTag(event) {
     event.preventDefault();
     const inLatitude = document.getElementById("inLatitudeHid");
-    if(inLatitude.dataset.id !== "") {
+    if (inLatitude.dataset.id !== "") {
         edit2();
         return;
     }
@@ -68,34 +69,29 @@ function addTag(event) {
             hashtag
         })
     })
-        .then(res => {
-            console.log(res);
-            if (res.err) {
-                console.log(res.err);
-            }
-            document.getElementById("tag-form").reset();
-        });
-    fetchList();
-}
-
-function fetchList() {
-    fetch("/data")
         .then(res => res.json())
-        .then(res => data(res['taglist']));
+        .then(res => createList(res['tagList']));
+    inName.value = "";
+    inHashtag.value = "";
 }
 
-function data(data) {
+function createList(data) {
+    const mapView = document.getElementById("mapView");
+    mapView.dataset.tags = JSON.stringify(data);
     let list = "";
     data.forEach(function ({latitude, longitude, name, hashtag, id}) {
         list += "<li class='geotag-item'>"
         list += `<div class='geotag-content' > ${name} ( ${latitude},${longitude} ) ${hashtag}</div><br>`
-        list+="<div class='geotag-editables'>"
+        list += "<div class='geotag-editables'>"
         list += `<button data-id=${id} class="geotag-editable" onclick="remove(this.dataset.id)">DELETE</button>`
         list += `<button data-id=${id} data-latitude=${latitude} data-longitude=${longitude} class="geotag-editable" onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">EDIT</button>`
         list += `<button data-id=${id} class="geotag-editable">REFRESH</button>`
-        list+="</div>"
+        list += "</div>"
         list += "</li>"
     })
+    if (list === "") {
+        list += "keine Tags vorhanden";
+    }
     const table = document.getElementById("discoveryResults");
     table.innerHTML = list;
     createMap();
@@ -107,19 +103,9 @@ function remove(id) {
             "Content-Type": "application/json"
         },
         method: "DELETE"
-    }).then(res => {
-        //alert("GeoTag deleted")
-        if (res.err) {
-            console.log(res.err);
-        }
-    }).then(res => {
-        console.log(res);
-        if (res.err) {
-            console.log(res.err);
-        }
-        document.getElementById("tag-form").reset();
-    });
-    fetchList();
+    })
+        .then(res => res.json())
+        .then(res => createList(res['tagList']));
 }
 
 
@@ -138,7 +124,6 @@ function edit(id, latitude, longitude) {
     legend.innerText = "Edit";
     button.innerText = "Bestätigen";
     headline.innerText = "Tag Bearbeiten";
-
 }
 
 
@@ -156,11 +141,10 @@ function edit2() {
             newName,
             newHashtag
         })
-    }).then(res => {
-        if (res.err) {
-            console.log(res.err);
-        }
-    });
+    })
+        .then(res => res.json())
+        .then(res => createList(res['tagList']));
+
     const legend = document.getElementById("legendTagging");
     const button = document.getElementById("buttonTagging");
     const headline = document.getElementById("headline");
@@ -169,9 +153,7 @@ function edit2() {
     button.innerText = "Add Tag";
     headline.innerText = "Tagging";
     inLatitude.dataset.id = "";
-    fetchList();
 }
-
 
 function deliverLocation(lat, long) {
 
