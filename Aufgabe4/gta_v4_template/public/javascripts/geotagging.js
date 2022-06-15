@@ -23,7 +23,8 @@ function searchTag(event) {
         body: JSON.stringify({
             searchVal
         })
-    })
+    }).then(res => res.json())
+        .then(res => data(res['taglist']));
 }
 
 function registerEventListeners() {
@@ -81,14 +82,21 @@ function fetchList() {
 }
 
 function data(data) {
+    console.log("neuladen mit data"+data)
     let list = "";
     data.forEach(function ({latitude, longitude, name, hashtag, id}) {
         list += "<li class='geotag-item'>"
         list += `<div class='geotag-content' > ${name} ( ${latitude},${longitude} ) ${hashtag}</div><br>`
+        list+="<div class='geotag-editables'>"
+        list += `<button data-id=${id} class="geotag-editable" onclick="remove(this.dataset.id)">DELETE</button>`
+        list += `<button data-id=${id} data-latitude=${latitude} data-longitude=${longitude} class="geotag-editable" onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">EDIT</button>`
+        list += `<button data-id=${id} class="geotag-editable">REFRESH</button>`
+        list+="</div>"
         list += "</li>"
     })
     const table = document.getElementById("discoveryResults");
     table.innerHTML = list;
+    createMap();
 }
 
 function remove(id) {
@@ -102,7 +110,14 @@ function remove(id) {
         if (res.err) {
             console.log(res.err);
         }
-    })
+    }).then(res => {
+        console.log(res);
+        if (res.err) {
+            console.log(res.err);
+        }
+        document.getElementById("tag-form").reset();
+    });
+    fetchList();
 }
 
 
