@@ -63,9 +63,16 @@ router.post("/tagging", (req, res) => {
   console.log("form arrived in tagging")
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
   let taglist = store.tagList
-  console.log(taglist)
-  res.json({test : "test"});
+  // res.json({test : "test"});
 });
+
+router.get("/data", (req,res) => {
+  const taglist = store.tagList;
+  res.send({taglist});
+  // taglist
+  //     .then(data => res.json({data: data}))
+  //     .catch(err => console.log(err));
+})
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
