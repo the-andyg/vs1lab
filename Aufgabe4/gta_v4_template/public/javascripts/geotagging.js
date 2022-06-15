@@ -45,6 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function addTag(event) {
     event.preventDefault();
     const inLatitude = document.getElementById("inLatitudeHid");
+    if(inLatitude.dataset.id !== "") {
+        edit2();
+        return;
+    }
     const latitude = inLatitude.value;
     const inLongitude = document.getElementById("inLongitudeHid");
     const longitude = inLongitude.value;
@@ -75,14 +79,12 @@ function addTag(event) {
 }
 
 function fetchList() {
-    console.log("neu laden")
     fetch("/data")
         .then(res => res.json())
         .then(res => data(res['taglist']));
 }
 
 function data(data) {
-    console.log("neuladen mit data"+data)
     let list = "";
     data.forEach(function ({latitude, longitude, name, hashtag, id}) {
         list += "<li class='geotag-item'>"
@@ -123,7 +125,9 @@ function remove(id) {
 
 function edit(id, latitude, longitude) {
     document.getElementById("inLatitude").value = latitude;
-    document.getElementById("inLatitudeHid").value = latitude;
+    let latitudeHid = document.getElementById("inLatitudeHid");
+    latitudeHid.value = latitude;
+    latitudeHid.dataset.id = id;
     document.getElementById("inLongitude").value = longitude;
     document.getElementById("inLongitudeHid").value = longitude;
 
@@ -134,15 +138,15 @@ function edit(id, latitude, longitude) {
     legend.innerText = "Edit";
     button.innerText = "Bestätigen";
     headline.innerText = "Tag Bearbeiten";
-    button.onclick = "a";
 
 }
 
 
-function edit2(id) {
-    console.log("edit 2");
-    const newName = "";
-    const newHashtag = "";
+function edit2() {
+    const inLatitude = document.getElementById("inLatitudeHid");
+    const id = inLatitude.dataset.id;
+    const newName = document.getElementById("tagName").value;
+    const newHashtag = document.getElementById("tagHashtag").value;
     fetch("/api/geotags" + id, {
         headers: {
             "Content-Type": "application/json"
@@ -156,7 +160,16 @@ function edit2(id) {
         if (res.err) {
             console.log(res.err);
         }
-    })
+    });
+    const legend = document.getElementById("legendTagging");
+    const button = document.getElementById("buttonTagging");
+    const headline = document.getElementById("headline");
+
+    legend.innerText = "Add new GeoTag";
+    button.innerText = "Add Tag";
+    headline.innerText = "Tagging";
+    inLatitude.dataset.id = "";
+    fetchList();
 }
 
 
