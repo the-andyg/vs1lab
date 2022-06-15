@@ -8,7 +8,6 @@
 // The console window must be opened explicitly in the browser.
 // Try to find this output in the browser...
 
-
  */
 
 function searchTag(event) {
@@ -27,21 +26,6 @@ function searchTag(event) {
         .then(res => res.json())
         .then(res => createList(res['tagList']));
 }
-
-function registerEventListeners() {
-    let form = document.getElementById("tag-form");
-    form.addEventListener("submit", addTag);
-
-    let discovery = document.getElementById("discoveryFilterForm");
-    discovery.addEventListener("submit", searchTag);
-}
-
-// Wait for the page to fully load its DOM content, then call updateLocation
-document.addEventListener("DOMContentLoaded", () => {
-    createMap();
-    registerEventListeners();
-});
-
 
 function addTag(event) {
     event.preventDefault();
@@ -108,7 +92,6 @@ function remove(id) {
         .then(res => createList(res['tagList']));
 }
 
-
 function edit(id, latitude, longitude) {
     document.getElementById("inLatitude").value = latitude;
     let latitudeHid = document.getElementById("inLatitudeHid");
@@ -125,7 +108,6 @@ function edit(id, latitude, longitude) {
     button.innerText = "Bestätigen";
     headline.innerText = "Tag Bearbeiten";
 }
-
 
 function edit2() {
     const inLatitude = document.getElementById("inLatitudeHid");
@@ -156,12 +138,10 @@ function edit2() {
 }
 
 function deliverLocation(lat, long) {
-
     let arr = {
         lat: lat,
         long: long
     }
-
     fetch("/navigationData", {
         headers: {
             "Content-Type": "application/json"
@@ -174,7 +154,6 @@ function deliverLocation(lat, long) {
         }
     });
 }
-
 
 function createMap() {
     const map = new MapManager("6Z7IpMfAP4gbNkGohj0DmP2eTwI1sotC");
@@ -200,4 +179,16 @@ function createMap() {
     }
 }
 
+function registerEventListeners() {
+    let form = document.getElementById("tag-form");
+    form.addEventListener("submit", addTag);
 
+    let discovery = document.getElementById("discoveryFilterForm");
+    discovery.addEventListener("submit", searchTag);
+}
+
+// Wait for the page to fully load its DOM content, then call updateLocation
+document.addEventListener("DOMContentLoaded", () => {
+    createMap();
+    registerEventListeners();
+});

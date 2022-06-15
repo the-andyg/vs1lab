@@ -39,7 +39,6 @@ let coords = [];
  *
  * As response, the ejs-template is rendered without geotag objects.
  */
-
 router.get('/', (req, res) => {
   res.render('index', { taglist: tagList });
 });
@@ -58,7 +57,6 @@ router.get('/', (req, res) => {
  * To this end, "GeoTagStore" provides a method to search geotags
  * by radius around a given location.
  */
-
 router.post("/tagging", (req, res) => {
   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
   tagList = store.tagList
@@ -80,13 +78,10 @@ router.post("/tagging", (req, res) => {
  * To this end, "GeoTagStore" provides methods to search geotags
  * by radius and keyword.
  */
-
 router.post("/discovery", (req, res) => {
   tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
   res.send({tagList});
 });
-
-// API routes (A4)
 
 /**
  * Route '/api/geotags' for HTTP 'GET' requests.
@@ -99,7 +94,6 @@ router.post("/discovery", (req, res) => {
  * If 'searchterm' is present, it will be filtered by search term.
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
-
 router.get("/api/geotags", (req, res) => {
   if(coords["lat"] && coords["long"]) {
     tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
@@ -109,8 +103,6 @@ router.get("/api/geotags", (req, res) => {
   }
   res.send({tagList});
 });
-
-
 
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -122,7 +114,6 @@ router.get("/api/geotags", (req, res) => {
  * The URL of the new resource is returned in the header as a response.
  * The new resource is rendered as JSON in the response.
  */
-
 router.post("/api/geotags", (req, res) => {
   const id = store.addTag(req.body.geotag);
   res.setHeader("GeoURL", window.location.origin + "/api/geotags/" + id);
@@ -139,13 +130,11 @@ router.post("/api/geotags", (req, res) => {
  *
  * The requested tag is rendered as JSON in the response.
  */
-
 router.get("/api/geotags:id", (req, res) => {
   console.log(req.params)
   tagList = store.tagList;
   res.send({tagList});
 });
-
 
 /**
  * Route '/api/geotags/:id' for HTTP 'PUT' requests.
@@ -160,13 +149,11 @@ router.get("/api/geotags:id", (req, res) => {
  * Changes the tag with the corresponding ID to the sent value.
  * The updated resource is rendered as JSON in the response.
  */
-
 router.put("/api/geotags:id", (req, res) => {
   store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
   tagList = store.tagList;
   res.send({tagList});
 });
-
 
 /**
  * Route '/api/geotags/:id' for HTTP 'DELETE' requests.
@@ -178,13 +165,15 @@ router.put("/api/geotags:id", (req, res) => {
  * Deletes the tag with the corresponding ID.
  * The deleted resource is rendered as JSON in the response.
  */
-
 router.delete("/api/geotags:id", (req, res) => {
   store.removeGeoTagById(req.params.id);
   tagList = store.tagList;
   res.send({tagList});
 });
 
+/**
+ * Route for location data
+ */
 router.post("/navigationData", (req, res) => {
   coords["lat"] = req.body.lat;
   coords["long"] = req.body.long;
