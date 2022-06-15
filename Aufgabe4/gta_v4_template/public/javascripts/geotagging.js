@@ -70,6 +70,25 @@ function addTag(event) {
             }
             document.getElementById("tag-form").reset();
         });
+    fetchList();
+}
+
+function fetchList() {
+    console.log("neu laden")
+    fetch("/data")
+        .then(res => res.json())
+        .then(res => data(res['taglist']));
+}
+
+function data(data) {
+    let list = "";
+    data.forEach(function ({latitude, longitude, name, hashtag, id}) {
+        list += "<li class='geotag-item'>"
+        list += `<div class='geotag-content' > ${name} ( ${latitude},${longitude} ) ${hashtag}</div><br>`
+        list += "</li>"
+    })
+    const table = document.getElementById("discoveryResults");
+    table.innerHTML = list;
 }
 
 function remove(id) {
@@ -85,6 +104,7 @@ function remove(id) {
         }
     })
 }
+
 
 function edit(id, latitude, longitude) {
     document.getElementById("inLatitude").value = latitude;
