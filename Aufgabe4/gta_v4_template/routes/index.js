@@ -69,9 +69,6 @@ router.post("/tagging", (req, res) => {
 router.get("/data", (req,res) => {
   const taglist = store.tagList;
   res.send({taglist});
-  // taglist
-  //     .then(data => res.json({data: data}))
-  //     .catch(err => console.log(err));
 })
 
 /**
