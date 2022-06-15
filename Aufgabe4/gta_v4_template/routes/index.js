@@ -91,9 +91,8 @@ router.get("/data", (req,res) => {
  */
 
 router.post("/discovery", (req, res) => {
-  tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
-  res.render('index', { taglist: tagList })
-  res.send();
+  const taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+  res.send({taglist});
 });
 
 // API routes (A4)
