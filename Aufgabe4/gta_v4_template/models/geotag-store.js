@@ -39,6 +39,7 @@ class InMemoryGeoTagStore {
 
     addTag(geotag) {
         this.#tagList.push(geotag);
+        this.id++;
         return this.#tagList.length - 1;
     }
 

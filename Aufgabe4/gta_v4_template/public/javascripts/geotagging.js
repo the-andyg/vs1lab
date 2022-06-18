@@ -10,11 +10,11 @@
 
  */
 
-function searchTag(event) {
+async function searchTag(event) {
     event.preventDefault();
     let searchVal = document.getElementById("searchBar").value;
 
-    fetch("/discovery", {
+    await fetch("/discovery", {
         headers: {
             "Content-Type": "application/json"
         },
@@ -24,10 +24,11 @@ function searchTag(event) {
         })
     })
         .then(res => res.json())
+        //.then(res => console.log(res['tagList']))
         .then(res => createList(res['taglist']))
 }
 
-function addTag(event) {
+async function addTag(event) {
     event.preventDefault();
     const inLatitude = document.getElementById("inLatitudeHid");
     if (inLatitude.dataset.id !== "") {
@@ -41,7 +42,7 @@ function addTag(event) {
     const name = inName.value;
     const inHashtag = document.getElementById("tagHashtag");
     const hashtag = inHashtag.value;
-    fetch("/tagging", {
+    await fetch("/api/geotags", {
         headers: {
             "Content-Type": "application/json"
         },
@@ -60,6 +61,7 @@ function addTag(event) {
 }
 
 function createList(data) {
+    console.log(data)
     const mapView = document.getElementById("mapView");
     mapView.dataset.tags = JSON.stringify(data);
     let list = "";
