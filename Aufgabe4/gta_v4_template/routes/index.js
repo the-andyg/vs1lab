@@ -79,7 +79,15 @@ router.post("/tagging", (req, res) => {
  * by radius and keyword.
  */
 router.post("/discovery", (req, res) => {
-  tagList = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+  console.log("coords: " + coords["lat"])
+  let taglist = null;
+  if(coords["lat"] && coords["long"]) {
+    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+  } else if(req.body.searchVal) {
+    console.log(req.body.searchVal);
+    taglist = store.searchGeotagsByKeyword(req.body.searchVal)
+  }
+  console.log(taglist)
   res.send({tagList});
 });
 

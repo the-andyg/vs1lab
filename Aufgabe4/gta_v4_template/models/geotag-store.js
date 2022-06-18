@@ -72,13 +72,22 @@ class InMemoryGeoTagStore {
         return tags;
     }
 
+    searchGeotagsByKeyword(name/*, hashtag*/) {
+        let tags = [];
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].name === name/* || this.#tagList[i].hashtag === hashtag*/) {
+                tags.push(this.#tagList[i])
+            }
+        }
+        return tags;
+    }
+
     searchNearbyGeoTags(lat, long, keyword, radius) {
         let tags = [];
-        let geotags = this.getNearbyGeoTags(lat,long,radius);
-        console.log(geotags);
+        let geotags = this.getNearbyGeoTags(lat, long, radius);
         for (let i = 0; i < geotags.length; i++) {
             if (geotags[i].name.includes(keyword) || geotags[i].hashtag.includes(keyword)) {
-                    tags.push(this.#tagList[i]);
+                tags.push(this.#tagList[i]);
             }
         }
         return tags;

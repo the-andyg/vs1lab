@@ -24,7 +24,7 @@ function searchTag(event) {
         })
     })
         .then(res => res.json())
-        .then(res => createList(res['tagList']));
+        .then(res => createList(res['taglist']))
 }
 
 function addTag(event) {
