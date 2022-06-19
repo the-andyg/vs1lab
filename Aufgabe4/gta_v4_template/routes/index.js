@@ -87,7 +87,6 @@ router.post("/discovery", (req, res) => {
     console.log(req.body.searchVal);
     taglist = store.searchGeotagsByKeyword(req.body.searchVal)
   }
-  console.log(taglist)
   res.send({taglist});
 });
 
@@ -103,13 +102,14 @@ router.post("/discovery", (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 router.get("/api/geotags", (req, res) => {
+  let taglist = null;
   if(coords["lat"] && coords["long"]) {
-    tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
+    taglist = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
   }
-  else if(req.body.hasAttribute("searchterm")) {
-    tagList = store.searchNearbyGeoTags(coords[0],coords[1],req.body.searchterm, 0.05)
+  if(req.body.searchterm !== null) {
+    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchterm, 50)
   }
-  res.send({tagList});
+  res.send({taglist});
 });
 
 /**
@@ -141,9 +141,8 @@ router.post("/api/geotags", (req, res) => {
  * The requested tag is rendered as JSON in the response.
  */
 router.get("/api/geotags:id", (req, res) => {
-  console.log(req.params)
-  tagList = store.tagList;
-  res.send({tagList});
+  const tag = store.getGeoTagById(req.params.id);
+  res.send({tag});
 });
 
 /**

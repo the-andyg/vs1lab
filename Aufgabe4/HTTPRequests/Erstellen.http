@@ -1,0 +1,4 @@
+POST http://localhost:3000/api/geotags HTTP/1.1
+Content-Type: application/json
+
+{ "name" : "Berlin", "hashtag": "#ber","latitude": "9.98989898","longitude":"8.7575757"}

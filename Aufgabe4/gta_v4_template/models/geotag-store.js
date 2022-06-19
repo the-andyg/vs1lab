@@ -44,10 +44,15 @@ class InMemoryGeoTagStore {
     }
 
     overwriteTag(id, name, hashtag) {
-        const i = this.#getGeoTagById(id);
-        this.#tagList[i].name = name;
-        this.#tagList[i].hashtag = hashtag;
-        console.log(this.#tagList[i]);
+        const tag = this.getGeoTagById(id);
+        let index = 0;
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].id == tag.id) {
+                index = i;
+            }
+        }
+        this.#tagList[index].name = name;
+        this.#tagList[index].hashtag = hashtag;
     }
 
     addGeoTag(name, hashtag, latitude, longitude) {
@@ -86,6 +91,7 @@ class InMemoryGeoTagStore {
     searchNearbyGeoTags(lat, long, keyword, radius) {
         let tags = [];
         let geotags = this.getNearbyGeoTags(lat, long, radius);
+        console.log(geotags);
         for (let i = 0; i < geotags.length; i++) {
             if (geotags[i].name.includes(keyword) || geotags[i].hashtag.includes(keyword)) {
                 tags.push(this.#tagList[i]);
@@ -95,13 +101,20 @@ class InMemoryGeoTagStore {
     }
 
     removeGeoTagById(id) {
-        this.#tagList.splice(this.#getGeoTagById(id), 1);
+        const tag = this.getGeoTagById(id);
+        let index = 0;
+        for (let i = 0; i < this.#tagList.length; i++) {
+            if (this.#tagList[i].id == tag.id) {
+                index = i;
+            }
+        }
+        this.#tagList.splice(index, 1);
     }
 
-    #getGeoTagById(id) {
+    getGeoTagById(id) {
         for (let i = 0; i < this.#tagList.length; i++) {
             if (this.#tagList[i].id == id) {
-                return i;
+                return this.#tagList[i];
             }
         }
     }
