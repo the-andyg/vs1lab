@@ -140,7 +140,7 @@ router.post("/api/geotags", (req, res) => {
  *
  * The requested tag is rendered as JSON in the response.
  */
-router.get("/api/geotags:id", (req, res) => {
+router.get("/api/geotags/:id", (req, res) => {
   const tag = store.getGeoTagById(req.params.id);
   res.send({tag});
 });
@@ -158,7 +158,7 @@ router.get("/api/geotags:id", (req, res) => {
  * Changes the tag with the corresponding ID to the sent value.
  * The updated resource is rendered as JSON in the response.
  */
-router.put("/api/geotags:id", (req, res) => {
+router.put("/api/geotags/:id", (req, res) => {
   store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
   tagList = store.tagList;
   res.send({tagList});
@@ -174,7 +174,7 @@ router.put("/api/geotags:id", (req, res) => {
  * Deletes the tag with the corresponding ID.
  * The deleted resource is rendered as JSON in the response.
  */
-router.delete("/api/geotags:id", (req, res) => {
+router.delete("/api/geotags/:id", (req, res) => {
   store.removeGeoTagById(req.params.id);
   tagList = store.tagList;
   res.send({tagList});
