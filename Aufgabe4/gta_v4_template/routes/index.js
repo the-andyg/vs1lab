@@ -57,11 +57,11 @@ router.get('/', (req, res) => {
  * To this end, "GeoTagStore" provides a method to search geotags
  * by radius around a given location.
  */
-router.post("/tagging", (req, res) => {
-  store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-  tagList = store.tagList
-  res.send({tagList});
-});
+// router.post("/tagging", (req, res) => {
+//   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
+//   tagList = store.tagList
+//   res.send({tagList});
+// });
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -78,17 +78,17 @@ router.post("/tagging", (req, res) => {
  * To this end, "GeoTagStore" provides methods to search geotags
  * by radius and keyword.
  */
-router.post("/discovery", (req, res) => {
-  console.log("coords: " + coords["lat"] + "  ,  " + coords["long"])
-  let taglist = null;
-  if(coords["lat"] && coords["long"]) {
-    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
-  } else if(req.body.searchVal) {
-    console.log(req.body.searchVal);
-    taglist = store.searchGeotagsByKeyword(req.body.searchVal)
-  }
-  res.send({taglist});
-});
+// router.post("/discovery", (req, res) => {
+//   console.log("coords: " + coords["lat"] + "  ,  " + coords["long"])
+//   let taglist = null;
+//   if(coords["lat"] && coords["long"]) {
+//     taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchVal, .5)
+//   } else if(req.body.searchVal) {
+//     console.log(req.body.searchVal);
+//     taglist = store.searchGeotagsByKeyword(req.body.searchVal)
+//   }
+//   res.send({taglist});
+// });
 
 /**
  * Route '/api/geotags' for HTTP 'GET' requests.
