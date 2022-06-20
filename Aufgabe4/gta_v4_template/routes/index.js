@@ -111,6 +111,7 @@ router.get("/api/geotags", (req, res) => {
   if(req.body.searchterm !== null) {
     taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],searchParams.get("/api/geotags?q"), 50)
   }
+  console.log({taglist});
   res.send({taglist});
 });
 

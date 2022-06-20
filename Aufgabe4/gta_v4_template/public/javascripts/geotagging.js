@@ -72,7 +72,7 @@ function createList(data) {
         list += "</li>"
     })
     if (list === "") {
-        list += "keine Tags vorhanden";
+        list += "Keine Tags vorhanden!";
     }
     const table = document.getElementById("discoveryResults");
     table.innerHTML = list;
