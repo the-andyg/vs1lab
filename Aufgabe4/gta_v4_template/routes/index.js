@@ -103,11 +103,13 @@ router.post("/discovery", (req, res) => {
  */
 router.get("/api/geotags", (req, res) => {
   let taglist = null;
+  const searchParams = new URLSearchParams(req.url);
+  console.log(searchParams.get("/api/geotags?q"));
   if(coords["lat"] && coords["long"]) {
     taglist = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
   }
   if(req.body.searchterm !== null) {
-    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],req.body.searchterm, 50)
+    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],searchParams.get("/api/geotags?q"), 50)
   }
   res.send({taglist});
 });

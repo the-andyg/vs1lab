@@ -101,10 +101,9 @@ class InMemoryGeoTagStore {
     }
 
     removeGeoTagById(id) {
-        const tag = this.getGeoTagById(id);
         let index = 0;
         for (let i = 0; i < this.#tagList.length; i++) {
-            if (this.#tagList[i].id == tag.id) {
+            if (this.#tagList[i].id == id) {
                 index = i;
             }
         }

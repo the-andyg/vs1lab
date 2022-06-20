@@ -14,14 +14,11 @@ async function searchTag(event) {
     event.preventDefault();
     let searchVal = document.getElementById("searchBar").value;
 
-    await fetch("/discovery", {
+    await fetch("/api/geotags?q="+searchVal, {
         headers: {
             "Content-Type": "application/json"
         },
-        method: "POST",
-        body: JSON.stringify({
-            searchVal
-        })
+        method: "GET"
     })
         .then(res => res.json())
         //.then(res => console.log(res['tagList']))
@@ -115,7 +112,7 @@ function edit2() {
     const id = inLatitude.dataset.id;
     const newName = document.getElementById("tagName").value;
     const newHashtag = document.getElementById("tagHashtag").value;
-    fetch("/api/geotags" + id, {
+    fetch("/api/geotags/" + id, {
         headers: {
             "Content-Type": "application/json"
         },

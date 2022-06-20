@@ -1,4 +1,2 @@
-GET http://localhost:3000/api/geotags HTTP/1.1
+GET http://localhost:3000/api/geotags?q=IWI HTTP/1.1
 Content-Type: application/json
-
-{ "searchterm": "Building"}
