@@ -126,8 +126,6 @@ router.post("/api/geotags", (req, res) => {
   const id = store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
   res.setHeader("GeoURL", "/api/geotags/" + id);
   tagList = store.tagList;
-  console.log("sending new tagList:")
-  console.log(tagList)
   res.status(201).send({tagList});
 });
 

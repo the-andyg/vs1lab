@@ -261,5 +261,5 @@ li {
 }
 
 .discovery__results li .geotag-editables button {
-    width: calc(33% - 1rem);
+    width: calc(50% - 1rem);
 }

@@ -71,7 +71,6 @@ function createList(data) {
         list += "<div class='geotag-editables'>"
         list += `<button data-id=${id} class="geotag-editable" onclick="remove(this.dataset.id)">DELETE</button>`
         list += `<button data-id=${id} data-latitude=${latitude} data-longitude=${longitude} class="geotag-editable" onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">EDIT</button>`
-        list += `<button data-id=${id} class="geotag-editable">REFRESH</button>`
         list += "</div>"
         list += "</li>"
     })
@@ -84,7 +83,7 @@ function createList(data) {
 }
 
 function remove(id) {
-    fetch("/api/geotags" + id, {
+    fetch("/api/geotags/" + id, {
         headers: {
             "Content-Type": "application/json"
         },
