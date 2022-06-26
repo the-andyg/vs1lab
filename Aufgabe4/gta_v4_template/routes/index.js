@@ -184,6 +184,7 @@ router.put("/api/geotags/:id", (req, res) => {
  */
 router.delete("/api/geotags/:id", (req, res) => {
     store.removeGeoTagById(req.params.id);
+    currPage = store.checkPage(currPage);
     tagList = store.getGeoTagsFromSite(currPage);
     const size = store.tagList.length;
     res.send({tagList, size, currPage});

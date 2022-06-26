@@ -138,6 +138,12 @@ class InMemoryGeoTagStore {
         }
         return tags;
     }
+
+    checkPage(site) {
+        if (site > Math.ceil(this.size2 / 4)) {
+            return site - 1;
+        } return site;
+    }
 }
 
 module.exports = InMemoryGeoTagStore;

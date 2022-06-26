@@ -23,7 +23,6 @@ async function searchTag(event) {
         .then(res => res.json())
         //.then(res => console.log(res['tagList']))
         .then(res => {
-            console.log(res['tagList'])
             createList(res['tagList'], res["size"], res["currPage"])
         })
 }
@@ -61,14 +60,7 @@ async function addTag(event) {
 }
 
 function createList(data, size, page) {
-    const pageInf = document.getElementById("pageInformation");
-    if (!size) {
-        size = pageInf.dataset.size;
-    }
     const size2 = Math.ceil(size / 4);
-    if (!page) {
-        page = pageInf.dataset.page;
-    }
     const mapView = document.getElementById("mapView");
     mapView.dataset.tags = JSON.stringify(data);
     let list = "";
@@ -86,9 +78,9 @@ function createList(data, size, page) {
     } else {
         list += '<div class="outerPagination">';
         list += '<div class="pagination">';
-        list += '<button id="buttonPreviousPage" data-PreviousPage="0" class="linkPage" onClick="pageBack()"> < </button>'
+        list += '<button id="buttonPreviousPage" class="linkPage" onClick="pageBack()"> < </button>'
         list += `<p id="pageInformation" data-size=${size} data-page=${page}>${page}/${size2} (${size}) </p>`
-        list += `<button id="buttonNextPage" data-NextPage="0" class="linkPage"onClick="nextPage()"> > </button>`
+        list += `<button id="buttonNextPage" class="linkPage"onClick="nextPage()"> > </button>`
         list += '</div>'
         list += '</div>'
     }
@@ -109,8 +101,6 @@ function updatePage(size, page) {
     if ((intPage) === Math.ceil(intSize / 4)) {
         button2.disabled = true;
     }
-    button1.dataset.PreviousPage = (intPage - 1).toString();
-    button2.dataset.NextPage = (intPage + 1).toString();
 }
 
 function pageBack() {
@@ -147,7 +137,7 @@ function remove(id) {
         method: "DELETE"
     })
         .then(res => res.json())
-        .then(res => createList(res['tagList']));
+        .then(res => createList(res['tagList'], res["size"], res["currPage"]));
     let size = parseInt(document.getElementById("pageInformation").dataset.size);
     document.getElementById("pageInformation").dataset.size = (size - 1).toString();
 }
@@ -184,7 +174,7 @@ function edit2() {
         })
     })
         .then(res => res.json())
-        .then(res => createList(res['tagList']));
+        .then(res => createList(res['tagList'], res["size"], res["currPage"]));
 
     const legend = document.getElementById("legendTagging");
     const button = document.getElementById("buttonTagging");

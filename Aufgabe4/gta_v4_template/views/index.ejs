@@ -85,11 +85,9 @@
                     <% }); %>
                     <div class="outerPagination">
                         <div class="pagination">
-                            <button id="buttonPreviousPage" data-PreviousPage="0" class="linkPage"
-                                    onclick="pageBack()" disabled> <
-                            </button>
+                            <button id="buttonPreviousPage" class="linkPage" onclick="pageBack()" disabled> <</button>
                             <p id="pageInformation" data-page="1" data-size=<%= size %> >1/<%= Math.ceil(size / 4) %> (<%= size %>)</p>
-                            <button id="buttonNextPage" data-NextPage="2" class="linkPage" onclick="nextPage()">></button>
+                            <button id="buttonNextPage" class="linkPage" onclick="nextPage()">></button>
                         </div>
                     </div>
                 </ul>
