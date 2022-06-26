@@ -38,7 +38,8 @@
                 <input id="inLongitude" placeholder="8.390071" disabled> <br>
                 <input type="hidden" id="inLongitudeHid" name="longitude"> <br>
                 <label for="tagName">Name:</label> <br>
-                <input id="tagName" name="name" placeholder="e.g. Central Berlin" minlength="2" maxlength="10" required> <br>
+                <input id="tagName" name="name" placeholder="e.g. Central Berlin" minlength="2" maxlength="10" required>
+                <br>
                 <label for="tagHashtag">Hashtag:</label> <br>
                 <input id="tagHashtag" name="hashtag" placeholder="e.g. #ber" pattern="^#[a-z]{1,10}$"> <br>
                 <button id="buttonTagging" type="submit">Add Tag</button>
@@ -67,18 +68,35 @@
                 <ul class="discovery__results" id="discoveryResults">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
                         <li class="geotag-item">
-                            <div class="geotag-content" > <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %> ) <%= gtag.hashtag %></div><br>
+                            <div class="geotag-content"> <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>
+                                ) <%= gtag.hashtag %></div>
+                            <br>
                             <div class="geotag-editables">
-                                <button data-id=<%= gtag.id %> class="geotag-editable" onclick="remove(this.dataset.id)">DELETE</button>
-                                <button data-id=<%= gtag.id %> data-latitude=<%= gtag.latitude %> data-longitude=<%= gtag.longitude %> class="geotag-editable" onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">EDIT</button>
-                                <!--<button data-id=<%= gtag.id %> class="geotag-editable">REFRESH</button>-->
+                                <button data-id=<%= gtag.id %> class="geotag-editable"
+                                        onclick="remove(this.dataset.id)">DELETE
+                                </button>
+                                <button data-id=<%= gtag.id %> data-latitude=<%= gtag.latitude %>
+                                        data-longitude=<%= gtag.longitude %> class="geotag-editable"
+                                        onclick="edit(this.dataset.id, this.dataset.latitude, this.dataset.longitude)">
+                                    EDIT
+                                </button>
                             </div>
                         </li>
-                    <% });%>
+                    <% }); %>
+                    <div class="outerPagination">
+                        <div class="pagination">
+                            <button id="buttonPreviousPage" data-PreviousPage="0" class="linkPage"
+                                    onclick="pageBack()" disabled> <
+                            </button>
+                            <p id="pageInformation" data-page="1" data-size=<%= size %> >1/<%= Math.ceil(size / 4) %> (<%= size %>)</p>
+                            <button id="buttonNextPage" data-NextPage="2" class="linkPage" onclick="nextPage()">></button>
+                        </div>
+                    </div>
                 </ul>
             </div>
-            <div class="discovery__map" >
-                <img src="mapview.jpg" alt="a map with locations" id="mapView" data-tags=<%= JSON.stringify(taglist) %> />
+            <div class="discovery__map">
+                <img src="mapview.jpg" alt="a map with locations" id="mapView"
+                     data-tags=<%= JSON.stringify(taglist) %> />
                 <br>
                 <span>Result map</span>
             </div>

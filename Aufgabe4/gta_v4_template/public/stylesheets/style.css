@@ -181,6 +181,24 @@ li {
     padding: 10px;
 }
 
+.linkPage {
+    border: solid var(--border-color) 1px;
+    margin: 0 10px 0 10px;
+    width: 30px;
+    height: 20px;
+}
+
+.outerPagination {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 30px;
+}
+
+.pagination {
+    display: flex;
+}
+
 /* ### TODO ### Styles for Footer Component */
 
 .footer {

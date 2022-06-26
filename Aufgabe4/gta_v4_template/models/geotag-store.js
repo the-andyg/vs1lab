@@ -65,17 +65,8 @@ class InMemoryGeoTagStore {
         return this.#tagList;
     }
 
-    getNearbyGeoTags(lat, long, radius) {
-        let tags = [];
-        for (let i = 0; i < this.#tagList.length; i++) {
-            let diffx = this.#tagList[i].latitude - lat;
-            let diffy = this.#tagList[i].longitude - long;
-            let diff = Math.sqrt((diffx * diffx) + (diffy * diffy));
-            if (diff < radius) {
-                tags.push(this.#tagList[i]);
-            }
-        }
-        return tags;
+    get size2() {
+        return this.#currentTagList.length;
     }
 
     searchGeotagsByKeyword(name/*, hashtag*/) {

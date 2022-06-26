@@ -57,11 +57,12 @@ router.get('/', (req, res) => {
  * To this end, "GeoTagStore" provides a method to search geotags
  * by radius around a given location.
  */
-// router.post("/tagging", (req, res) => {
-//   store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-//   tagList = store.tagList
-//   res.send({tagList});
-// });
+router.get("/api/page:page", (req, res) => {
+  currPage = req.params.page;
+  const geotags = store.getGeoTagsFromSite(req.params.page);
+  const size = store.size2;
+  res.send({geotags, size, currPage});
+});
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -89,6 +90,7 @@ router.get('/', (req, res) => {
 //   }
 //   res.send({taglist});
 // });
+
 
 /**
  * Route '/api/geotags' for HTTP 'GET' requests.

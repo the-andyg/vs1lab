@@ -14,7 +14,7 @@ async function searchTag(event) {
     event.preventDefault();
     let searchVal = document.getElementById("searchBar").value;
 
-    await fetch("/api/geotags?q="+searchVal, {
+    await fetch("/api/geotags?q=" + searchVal, {
         headers: {
             "Content-Type": "application/json"
         },
@@ -52,13 +52,20 @@ async function addTag(event) {
         })
     })
         .then(res => res.json())
-        .then(res => createList(res['tagList']));
+        .then(res => createList(res['tagList'], res["size"], res["currPage"]));
     inName.value = "";
     inHashtag.value = "";
 }
 
-function createList(data) {
-    console.log(data)
+function createList(data, size, page) {
+    const pageInf = document.getElementById("pageInformation");
+    if (!size) {
+        size = pageInf.dataset.size;
+    }
+    const size2 = Math.ceil(size / 4);
+    if (!page) {
+        page = pageInf.dataset.page;
+    }
     const mapView = document.getElementById("mapView");
     mapView.dataset.tags = JSON.stringify(data);
     let list = "";
@@ -73,10 +80,60 @@ function createList(data) {
     })
     if (list === "") {
         list += "Keine Tags vorhanden!";
+    } else {
+        list += '<div class="outerPagination">';
+        list += '<div class="pagination">';
+        list += '<button id="buttonPreviousPage" data-PreviousPage="0" class="linkPage" onClick="pageBack()"> < </button>'
+        list += `<p id="pageInformation" data-size=${size} data-page=${page}>${page}/${size2} (${size}) </p>`
+        list += `<button id="buttonNextPage" data-NextPage="0" class="linkPage"onClick="nextPage()"> > </button>`
+        list += '</div>'
+        list += '</div>'
     }
     const table = document.getElementById("discoveryResults");
     table.innerHTML = list;
+    updatePage(size, page);
     createMap();
+}
+
+function updatePage(size, page) {
+    const button1 = document.getElementById("buttonPreviousPage");
+    const button2 = document.getElementById("buttonNextPage");
+    const intSize = parseInt(size);
+    const intPage = parseInt(page);
+    if (intPage - 1 === 0) {
+        button1.disabled = true;
+    }
+    if ((intPage) === Math.ceil(intSize / 4)) {
+        button2.disabled = true;
+    }
+    button1.dataset.PreviousPage = (intPage - 1).toString();
+    button2.dataset.NextPage = (intPage + 1).toString();
+}
+
+function pageBack() {
+    const pageInf = document.getElementById("pageInformation");
+    const page = pageInf.dataset.page;
+    const intPage = parseInt(page);
+    getPageTags(intPage - 1);
+}
+
+function nextPage() {
+    const pageInf = document.getElementById("pageInformation");
+    const page = pageInf.dataset.page;
+    const intPage = parseInt(page);
+    getPageTags(intPage + 1);
+}
+
+async function getPageTags(page) {
+    await fetch("/api/page" + page, {
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method: "GET"
+    })
+        .then(res => res.json())
+        //.then(res => console.log(res['tagList']))
+        .then(res => createList(res['geotags'], res["size"], res["currPage"]))
 }
 
 function remove(id) {
