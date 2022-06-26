@@ -40,7 +40,9 @@ let coords = [];
  * As response, the ejs-template is rendered without geotag objects.
  */
 router.get('/', (req, res) => {
-  res.render('index', { taglist: tagList });
+  tagList = store.getGeoTagsFromSite(1);
+  const size = store.size2;
+  res.render('index', { taglist: tagList, size: size });
 });
 
 /**

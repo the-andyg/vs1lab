@@ -29,11 +29,13 @@ const GeoTagExamples = require("../models/geotag-examples");
 class InMemoryGeoTagStore {
 
     #tagList = [];
+    #currentTagList = [];
     id;
 
     constructor() {
         let examples = new GeoTagExamples;
         this.#tagList = examples.put();
+        this.#currentTagList = this.#tagList;
         this.id = 11;
     }
 
@@ -58,6 +60,7 @@ class InMemoryGeoTagStore {
     addGeoTag(name, hashtag, latitude, longitude) {
         this.#tagList.push(new GeoTag(name, latitude, longitude, hashtag, this.id));
         this.id++;
+        this.#currentTagList = this.#tagList;
         return this.#tagList.length - 1;
     }
 
@@ -76,6 +79,7 @@ class InMemoryGeoTagStore {
                 tags.push(this.#tagList[i])
             }
         }
+        this.#currentTagList = tags;
         return tags;
     }
 
@@ -88,6 +92,7 @@ class InMemoryGeoTagStore {
                 tags.push(this.#tagList[i]);
             }
         }
+        this.#currentTagList = tags;
         return tags;
     }
 
@@ -107,6 +112,18 @@ class InMemoryGeoTagStore {
                 return this.#tagList[i];
             }
         }
+    }
+
+    getGeoTagsFromSite(site) {
+        let tags = [];
+        for (let i = (site - 1) * 4; i < site * 4; i++) {
+            if (this.#currentTagList[i] != null) {
+                tags.push(this.#currentTagList[i]);
+            } else {
+                break;
+            }
+        }
+        return tags;
     }
 }
 

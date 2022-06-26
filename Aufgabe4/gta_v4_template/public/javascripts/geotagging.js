@@ -145,6 +145,8 @@ function remove(id) {
     })
         .then(res => res.json())
         .then(res => createList(res['tagList']));
+    let size = parseInt(document.getElementById("pageInformation").dataset.size);
+    document.getElementById("pageInformation").dataset.size = (size - 1).toString();
 }
 
 function edit(id, latitude, longitude) {
@@ -153,8 +155,7 @@ function edit(id, latitude, longitude) {
     latitudeHid.value = latitude;
     latitudeHid.dataset.id = id;
     document.getElementById("inLongitude").value = longitude;
-    document.getElementById("inLongitudeHid").value = longitude;
-
+    document.getElementById("inLongitudeHid").value = longit
     const legend = document.getElementById("legendTagging");
     const button = document.getElementById("buttonTagging");
     const headline = document.getElementById("headline");
