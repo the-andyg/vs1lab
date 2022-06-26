@@ -22,7 +22,10 @@ async function searchTag(event) {
     })
         .then(res => res.json())
         //.then(res => console.log(res['tagList']))
-        .then(res => createList(res['taglist']))
+        .then(res => {
+            console.log(res['tagList'])
+            createList(res['tagList'], res["size"], res["currPage"])
+        })
 }
 
 async function addTag(event) {

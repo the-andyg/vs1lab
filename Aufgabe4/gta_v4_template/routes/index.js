@@ -28,6 +28,7 @@ const GeoTag = require('../models/geotag');
 const GeoTagStore = require('../models/geotag-store');
 const store = new GeoTagStore();
 let tagList = store.tagList;
+let currPage = 1;
 let coords = [];
 // App routes (A3)
 
@@ -106,17 +107,20 @@ router.get("/api/page:page", (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 router.get("/api/geotags", (req, res) => {
-  let taglist = null;
+  //let taglist = null;
   const searchParams = new URLSearchParams(req.url);
   console.log(searchParams.get("/api/geotags?q"));
+  console.log(coords);
   if(coords["lat"] && coords["long"]) {
-    taglist = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
+    tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
   }
   if(req.body.searchterm !== null) {
-    taglist = store.searchNearbyGeoTags(coords["lat"],coords["long"],searchParams.get("/api/geotags?q"), 50)
+    console.log("searchNerby")
+    store.searchNearbyGeoTags(coords["lat"],coords["long"], searchParams.get("/api/geotags?q"), 50)
+    tagList = store.getGeoTagsFromSite(currPage)
   }
-  console.log({taglist});
-  res.send({taglist});
+  const size = store.size2;
+  res.send({tagList, size, currPage});
 });
 
 /**
@@ -132,8 +136,9 @@ router.get("/api/geotags", (req, res) => {
 router.post("/api/geotags", (req, res) => {
   const id = store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
   res.setHeader("GeoURL", "/api/geotags/" + id);
-  tagList = store.tagList;
-  res.status(201).send({tagList});
+  tagList = store.getGeoTagsFromSite(currPage);
+  const size = store.tagList.length;
+  res.status(201).send({tagList, size, currPage});
 });
 
 /**

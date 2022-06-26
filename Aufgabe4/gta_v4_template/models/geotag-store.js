@@ -83,10 +83,23 @@ class InMemoryGeoTagStore {
         return tags;
     }
 
+    getNearbyGeoTags(lat, long, radius) {
+        let tags = [];
+        for (let i = 0; i < this.#tagList.length; i++) {
+            let diffx = this.#tagList[i].latitude - lat;
+            let diffy = this.#tagList[i].longitude - long;
+            let diff = Math.sqrt((diffx * diffx) + (diffy * diffy));
+            if (diff < radius) {
+                tags.push(this.#tagList[i]);
+            }
+        }
+        this.#currentTagList = tags;
+        return tags;
+    }
+
     searchNearbyGeoTags(lat, long, keyword, radius) {
         let tags = [];
         let geotags = this.getNearbyGeoTags(lat, long, radius);
-        console.log(geotags);
         for (let i = 0; i < geotags.length; i++) {
             if (geotags[i].name.includes(keyword) || geotags[i].hashtag.includes(keyword)) {
                 tags.push(this.#tagList[i]);
