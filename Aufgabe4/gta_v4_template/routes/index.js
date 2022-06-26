@@ -41,9 +41,9 @@ let coords = [];
  * As response, the ejs-template is rendered without geotag objects.
  */
 router.get('/', (req, res) => {
-  tagList = store.getGeoTagsFromSite(1);
-  const size = store.size2;
-  res.render('index', { taglist: tagList, size: size });
+    tagList = store.getGeoTagsFromSite(1);
+    const size = store.size2;
+    res.render('index', {taglist: tagList, size: size});
 });
 
 /**
@@ -61,10 +61,10 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 router.get("/api/page:page", (req, res) => {
-  currPage = req.params.page;
-  const geotags = store.getGeoTagsFromSite(req.params.page);
-  const size = store.size2;
-  res.send({geotags, size, currPage});
+    currPage = req.params.page;
+    const geotags = store.getGeoTagsFromSite(req.params.page);
+    const size = store.size2;
+    res.send({geotags, size, currPage});
 });
 
 /**
@@ -107,20 +107,17 @@ router.get("/api/page:page", (req, res) => {
  * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
  */
 router.get("/api/geotags", (req, res) => {
-  //let taglist = null;
-  const searchParams = new URLSearchParams(req.url);
-  console.log(searchParams.get("/api/geotags?q"));
-  console.log(coords);
-  if(coords["lat"] && coords["long"]) {
-    tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
-  }
-  if(req.body.searchterm !== null) {
-    console.log("searchNerby")
-    store.searchNearbyGeoTags(coords["lat"],coords["long"], searchParams.get("/api/geotags?q"), 50)
-    tagList = store.getGeoTagsFromSite(currPage)
-  }
-  const size = store.size2;
-  res.send({tagList, size, currPage});
+    //let taglist = null;
+    const searchParams = new URLSearchParams(req.url);
+    if (coords["lat"] && coords["long"]) {
+        tagList = store.getNearbyGeoTags(coords["lat"], coords["long"], 0.05)
+    }
+    if (req.body.searchterm !== null) {
+        store.searchNearbyGeoTags(coords["lat"], coords["long"], searchParams.get("/api/geotags?q"), 50)
+        tagList = store.getGeoTagsFromSite(currPage)
+    }
+    const size = store.size2;
+    res.send({tagList, size, currPage});
 });
 
 /**
@@ -134,11 +131,11 @@ router.get("/api/geotags", (req, res) => {
  * The new resource is rendered as JSON in the response.
  */
 router.post("/api/geotags", (req, res) => {
-  const id = store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
-  res.setHeader("GeoURL", "/api/geotags/" + id);
-  tagList = store.getGeoTagsFromSite(currPage);
-  const size = store.tagList.length;
-  res.status(201).send({tagList, size, currPage});
+    const id = store.addGeoTag(req.body.name, req.body.hashtag, req.body.latitude, req.body.longitude);
+    res.setHeader("GeoURL", "/api/geotags/" + id);
+    tagList = store.getGeoTagsFromSite(currPage);
+    const size = store.tagList.length;
+    res.status(201).send({tagList, size, currPage});
 });
 
 /**
@@ -151,8 +148,8 @@ router.post("/api/geotags", (req, res) => {
  * The requested tag is rendered as JSON in the response.
  */
 router.get("/api/geotags/:id", (req, res) => {
-  const tag = store.getGeoTagById(req.params.id);
-  res.send({tag});
+    const tag = store.getGeoTagById(req.params.id);
+    res.send({tag});
 });
 
 /**
@@ -169,9 +166,10 @@ router.get("/api/geotags/:id", (req, res) => {
  * The updated resource is rendered as JSON in the response.
  */
 router.put("/api/geotags/:id", (req, res) => {
-  store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
-  tagList = store.tagList;
-  res.send({tagList});
+    store.overwriteTag(req.params.id, req.body.newName, req.body.newHashtag);
+    tagList = store.getGeoTagsFromSite(currPage);
+    const size = store.tagList.length;
+    res.send({tagList, size, currPage});
 });
 
 /**
@@ -185,18 +183,19 @@ router.put("/api/geotags/:id", (req, res) => {
  * The deleted resource is rendered as JSON in the response.
  */
 router.delete("/api/geotags/:id", (req, res) => {
-  store.removeGeoTagById(req.params.id);
-  tagList = store.tagList;
-  res.send({tagList});
+    store.removeGeoTagById(req.params.id);
+    tagList = store.getGeoTagsFromSite(currPage);
+    const size = store.tagList.length;
+    res.send({tagList, size, currPage});
 });
 
 /**
  * Route for location data
  */
 router.post("/navigationData", (req, res) => {
-  coords["lat"] = req.body.lat;
-  coords["long"] = req.body.long;
-  res.sendStatus(200);
+    coords["lat"] = req.body.lat;
+    coords["long"] = req.body.long;
+    res.sendStatus(200);
 });
 
 module.exports = router;

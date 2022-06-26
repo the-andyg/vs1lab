@@ -158,7 +158,7 @@ function edit(id, latitude, longitude) {
     latitudeHid.value = latitude;
     latitudeHid.dataset.id = id;
     document.getElementById("inLongitude").value = longitude;
-    document.getElementById("inLongitudeHid").value = longit
+    document.getElementById("inLongitudeHid").value = longitude;
     const legend = document.getElementById("legendTagging");
     const button = document.getElementById("buttonTagging");
     const headline = document.getElementById("headline");
@@ -194,6 +194,8 @@ function edit2() {
     button.innerText = "Add Tag";
     headline.innerText = "Tagging";
     inLatitude.dataset.id = "";
+    newName.value = "";
+    newHashtag.value = "";
 }
 
 function deliverLocation(lat, long) {
